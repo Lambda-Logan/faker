@@ -1,0 +1,48 @@
+Name:     faker
+Version:  0.0.0.1
+Synopsis: Pure Haskell library for generating fake data
+Description:
+  No description yet
+  .
+  > 0.0.0.1
+  >  - Init version
+
+Author:        Alexey Gaziev
+Maintainer:    Alexey Gaziev <alex.gaziev@gmail.com>
+Homepage:      https://github.com/gazay/faker
+Bug-Reports:   http://github.com/gazay/faker/issues
+
+License:       MIT
+License-File:  LICENSE
+Category:      Testing
+Cabal-Version: >= 1.8
+Build-Type:    Simple
+
+Source-Repository head
+  Type:     git
+  Location: git://github.com/gazay/faker.git
+
+Library
+  HS-Source-Dirs: src
+
+  Exposed-Modules:
+    Faker
+
+--  GHC-Options: -Wall
+--  Build-Depends:
+--    base  >= 4    && < 5,
+--    mtl   >= 1    && < 2.3,
+--    text  >= 0.11 && < 1.2
+
+Test-Suite Test-Faker
+  Type: exitcode-stdio-1.0
+  HS-Source-Dirs: src
+  Main-Is: Test.hs
+  Build-Depends:
+    HUnit                >= 1.2  && < 1.3,
+    test-framework       >= 0.8  && < 0.9,
+    test-framework-hunit >= 0.3  && < 0.4
+--    base                 >= 4    && < 5,
+--    mtl                  >= 1    && < 2.3,
+--    text                 >= 0.11 && < 1.2,
+--  Ghc-Options: -Wall
