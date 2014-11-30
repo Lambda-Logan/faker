@@ -7,4 +7,3 @@ where
 
 import Prelude
 import Faker.Name
-import Gimlh

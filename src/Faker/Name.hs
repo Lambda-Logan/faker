@@ -7,25 +7,15 @@ module Faker.Name
 where
 
 import System.Random
-import Data.Yaml
 import Control.Applicative
 import Control.Monad
 import Data.Maybe
-import qualified Data.ByteString.Char8 as BS
+import Gimlh
 
 data FirstNames = FirstNames { firstNames :: [String] }
 
-instance FromJSON FirstNames where
-    parseJSON (Object v) = do
-      en <- v .: "en"
-      faker <- en .: "faker"
-      name <- faker .: "name"
-      FirstNames <$> name .: "first_name"
-    parseJSON _ = mzero
-
-namesFromJustNames :: Maybe [a] -> [a]
-namesFromJustNames (Just list) = list
-namesFromJustNames Nothing = []
+namesList :: Giml -> String -> [String]
+namesList giml, key =
 
 firstNames' :: IO ()
 firstNames' = do
