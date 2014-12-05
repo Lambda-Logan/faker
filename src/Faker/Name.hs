@@ -12,10 +12,10 @@ import Control.Monad
 import Data.Maybe
 import Gimlh
 
-data FirstNames = FirstNames { firstNames :: [String] }
+namesList :: String -> IO [String]
+namesList namesType = do
+    contents <- simplifyGiml $ parseFile "../data/en.giml"
 
-namesList :: Giml -> String -> [String]
-namesList giml, key =
 
 firstNames' :: IO ()
 firstNames' = do
