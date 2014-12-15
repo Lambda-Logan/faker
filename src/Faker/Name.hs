@@ -3,9 +3,8 @@ module Faker.Name
   firstName
 , lastName
 , fullName
-, namesList
-, firstNames
-, name
+, prefix
+, suffix
 )
 where
 
@@ -35,29 +34,27 @@ namesList namesType = do
       Nothing    -> return []
       (Just val) -> return $ val2List val
 
-firstNames :: IO [String]
-firstNames = namesList "name$first_name"
-
-lastNames :: IO [String]
-lastNames = namesList "name$last_name"
-
 name :: String -> IO String
 name nameType = do
     gen <- newStdGen
-    names <- case nameType of
-               "first"   -> firstNames
-               otherwise -> lastNames
+    names <- namesList ("name" ++ nameType)
     let ind = fst $ randomR (0, length names - 1) gen
     return $ names !! ind
 
 firstName :: IO String
-firstName = name "first"
+firstName = name "first_name"
 
 lastName :: IO String
-lastName = name "last"
+lastName = name "last_name"
 
 fullName :: IO String
 fullName = do
-    first <- name "first"
-    last  <- name "last"
+    first <- firstName
+    last  <- lastName
     return $ first ++ " " ++ last
+
+prefix :: IO String
+prefix = name "prefix"
+
+suffix :: IO String
+suffix = name "suffix"
