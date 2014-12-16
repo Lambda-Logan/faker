@@ -37,7 +37,7 @@ namesList namesType = do
 name :: String -> IO String
 name nameType = do
     gen <- newStdGen
-    names <- namesList ("name" ++ nameType)
+    names <- namesList ("name$" ++ nameType)
     let ind = fst $ randomR (0, length names - 1) gen
     return $ names !! ind
 
