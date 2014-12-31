@@ -31,4 +31,4 @@ Library
   GHC-Options: -Wall
   Build-Depends:
     base  >= 4    && < 5,
-    gimlh
+    gimlh >= 0.1.1.*
