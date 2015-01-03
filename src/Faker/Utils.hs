@@ -3,11 +3,14 @@ module Faker.Utils
   valsList
 , randomValue
 , replaceSymbols
+, evalRegex
 )
 where
 
-import System.Random
+import System.Random (newStdGen, randomR)
 import Gimlh -- need to renew
+import Data.List.Split (splitOn)
+import Data.List (intercalate)
 
 valsList :: String -> IO [String]
 valsList valsType = do
@@ -32,3 +35,39 @@ replaceSymbols (x:xs) = do
     case x of
       '#' -> return $ (show $ (fst (randomR (0,9) gen) :: Int)) ++ restOfLine
       otherwise -> return $ x : restOfLine
+
+evalRegex :: String -> IO String
+evalRegex regex = do
+    let preparedRegex = if head regex == '/' && last regex == '/'
+                          then init $ tail regex
+                          else regex
+    replaceExpressions preparedRegex >>= replaceSymbols
+
+replaceExpressions :: String -> IO String
+replaceExpressions [] = return ""
+replaceExpressions [a] = return [a]
+replaceExpressions (x:y:xs) = do
+  case y of
+    '{'       -> replicateChars x (y:xs) >>= replaceExpressions
+    otherwise -> case x of
+                   '['       -> randomizeChar (x:y:xs) >>= replaceExpressions (y:xs)
+                   otherwise -> x : replaceExpressions (y:xs)
+
+replicateChars :: Char -> String -> IO String
+replicateChars char rest = do
+  gen <- newStdGen
+  let splittedLine = splitOn "}" rest
+      range = read $ "(" ++ (tail $ head splittedLine) ++ ")" :: (Int, Int)
+      replicated = replicate (randomR range gen) char
+      restOfLine = intercalate "}" (tail splittedLine)
+  return $ replicated ++ restOfLine
+
+randomizeChar :: String -> IO String
+randomizeChar rest = do
+  gen <- newStdGen
+  let splittedLine = splitOn "]" rest
+      rangeNumbers = intercalate "," (splitOn "-" (tail $ head splittedLine))
+      range = read $ "(" ++ rangeNumbers ++ ")" :: (Int, Int)
+      randomized = show $ randomR range gen
+      restOfLine = intercalate "]" (tail splittedLine)
+  return $ randomized ++ restOfLine
