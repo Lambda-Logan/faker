@@ -10,6 +10,18 @@ where
 
 import Faker.Utils
 
+name :: IO String
+name = do
+    ind <- randomNum (0,6)
+    pref <- prefix
+    suff <- suffix
+    fName <- firstName
+    lName <- lastName
+    case ind of
+      0         -> return $ unwords [pref, fName, lName]
+      1         -> return $ unwords [fName, lName, suff]
+      otherwise -> return $ fName ++ " " ++ lName
+
 firstName :: IO String
 firstName = randomName "first_name"
 
