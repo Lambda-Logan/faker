@@ -2,13 +2,13 @@
 ####### Address ######
 ######################
 
-:list: adress$city_prefix
+:list: address$city_prefix
 North, East, West, South, New, Lake, Port
 
-:list: adress$city_suffix
+:list: address$city_suffix
 town, ton, land, ville, berg, burgh, borough, bury, view, port, mouth, stad, furt, chester, mouth, fort, haven, side, shire
 
-:list: adress$country
+:list: address$country
 Afghanistan, Albania, Algeria, American Samoa, Andorra, Angola, Anguilla, Antarctica (the territory South of 60 deg S),
 Antigua and Barbuda, Argentina, Armenia, Aruba, Australia, Austria, Azerbaijan,
 
@@ -69,7 +69,7 @@ Vanuatu, Venezuela, Vietnam, 'Virgin Islands, British', 'Virgin Islands, U.S.',
 
 Wallis and Futuna, Western Sahara, Yemen, Zambia, Zimbabwe
 
-:list: adress$country_code
+:list: address$country_code
 AD, AE, AF, AG, AI, AL, AM, AO, AQ, AR, AS, AT, AU, AW, AX, AZ,
 BA, BB, BD, BE, BF, BG, BH, BI, BJ, BL, BM, BN, BO, BQ, BQ, BR, BS, BT, BV, BW, BY, BZ,
 CA, CC, CD, CF, CG, CH, CI, CK, CL, CM, CN, CO, CR, CU, CV, CW, CX, CY, CZ,
@@ -96,10 +96,10 @@ WF, WS,
 YE, YT,
 ZA, ZM, ZW
 
-:list: adress$building_number
+:list: address$building_number
 #####, ####, ###
 
-:list: adress$street_suffix
+:list: address$street_suffix
 Alley, Avenue,
 Branch, Bridge, Brook, Brooks, Burg, Burgs, Bypass,
 Camp, Canyon, Cape, Causeway, Center, Centers, Circle, Circles, Cliff, Cliffs, Club, Common,
@@ -126,17 +126,17 @@ Underpass, Union, Unions,
 Valley, Valleys, Via, Viaduct, View, Views, Village, Village, Villages, Ville, Vista, Vista,
 Walk, Walks, Wall, Way, Ways, Well, Wells
 
-:list: adress$secondary_address
+:list: address$secondary_address
 Apt. ###, Suite ###
 
 # Though these are US-specific, they are here (in the default locale) for backwards compatibility
-:list: adress$postcode
+:list: address$postcode
 #####, #####-####
 
-:list: adress$postcode_by_state
+:list: address$postcode_by_state
 #####, #####-####
 
-:list: adress$state
+:list: address$state
 Alabama, Alaska, Arizona, Arkansas,
 California, Colorado, Connecticut,
 Delaware,
@@ -157,11 +157,11 @@ Utah,
 Vermont, Virginia,
 Washington, West Virginia, Wisconsin, Wyoming
 
-:list: adress$state_abbr
+:list: address$state_abbr
 AL, AK, AZ, AR,CA, CO, CT, DE, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS,
 MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY
 
-:list: adress$time_zone
+:list: address$time_zone
 Pacific/Midway, Pacific/Pago_Pago, Pacific/Honolulu,
 America/Juneau, America/Los_Angeles, America/Tijuana, America/Denver, America/Phoenix, America/Chihuahua, America/Mazatlan,
 America/Chicago, America/Regina, America/Mexico_City, America/Mexico_City, America/Monterrey, America/Guatemala, America/New_York,
@@ -185,7 +185,7 @@ Australia/Brisbane, Australia/Hobart, Asia/Vladivostok, Pacific/Guam, Pacific/Po
 Pacific/Noumea, Pacific/Fiji, Asia/Kamchatka, Pacific/Majuro, Pacific/Auckland, Pacific/Auckland, Pacific/Tongatapu,
 Pacific/Fakaofo, Pacific/Apia
 
-:text: adress$default_country
+:text: address$default_country
 United States of America
 
 ##########################
