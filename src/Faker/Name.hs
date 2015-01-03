@@ -8,7 +8,7 @@ module Faker.Name
 )
 where
 
-import Faker.Fetcher
+import Faker.Utils
 
 firstName :: IO String
 firstName = randomName "first_name"

@@ -1,4 +1,4 @@
-module Faker.Fetcher
+module Faker.Utils
 (
   valsList
 , randomValue

@@ -16,7 +16,7 @@ module Faker.Adress
 )
 where
 
-import Faker.Fetcher
+import Faker.Utils
 
 cityPrefix :: IO String
 cityPrefix = randomAddress "city_prefix"
