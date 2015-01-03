@@ -5,6 +5,7 @@ module Faker
 , module Faker.Address
 , module Faker.CreditCard
 , module Faker.Company
+, module Faker.Internet
 )
 where
 

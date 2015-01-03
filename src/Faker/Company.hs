@@ -4,6 +4,10 @@ module Faker.Company
 , bs
 , suffix
 , name
+, catchPhrase
+, ein
+, dunsNumber
+, logo
 )
 where
 
@@ -30,6 +34,18 @@ bs = randomCompanyWord "bs"
 
 suffix :: IO String
 suffix = randomCompanyWord "suffix"
+
+catchPhrase :: IO String
+catchPhrase = undefined
+
+ein :: IO String
+ein = undefined
+
+dunsNumber :: IO String
+dunsNumber = undefined
+
+logo :: IO String
+logo = undefined
 
 randomCompanyWord :: String -> IO String
 randomCompanyWord attr = randomValue "company" attr
