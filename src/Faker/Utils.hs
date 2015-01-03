@@ -2,6 +2,7 @@ module Faker.Utils
 (
   valsList
 , randomValue
+, randomNum
 , replaceSymbols
 , evalRegex
 )
@@ -26,6 +27,11 @@ randomValue namespace valType = do
     vals <- valsList (namespace ++ "$" ++ valType)
     let ind = fst $ randomR (0, length vals - 1) gen
     return $ vals !! ind
+
+randomNum :: (Int, Int) -> IO Int
+randomNum range = do
+    gen <- newStdGen
+    return $ fst (randomR range gen)
 
 replaceSymbols :: String -> IO String
 replaceSymbols [] = return ""

@@ -262,7 +262,7 @@ United States of America
 Inc, and Sons, LLC, Group
 
 # Buzzword wordlist from http://www.1728.com/buzzword.htm
-:list: company$buzzwords1
+:list: company$buzzwords
 Adaptive, Advanced, Ameliorated, Assimilated, Automated,
 Balanced, Business-focused,
 Centralized, Cloned, Compatible, Configurable, Cross-group, Cross-platform, Customer-focused, Customizable,
@@ -282,8 +282,6 @@ Seamless, Secured, Self-enabling, Sharable, Stand-alone, Streamlined, Switchable
 Team-oriented, Total, Triple-buffered,
 Universal, Up-sized, Upgradable, User-centric, User-friendly,
 Versatile, Virtual, Visionary, Vision-oriented
-
-:list: company$buzzwords2
 24 hour, 24/7, 3rd generation, 4th generation, 5th generation, 6th generation,
 actuating, analyzing, asymmetric, asynchronous, attitude-oriented,
 background, bandwidth-monitored, bi-directional, bifurcated, bottom-line,
@@ -305,8 +303,6 @@ uniform, upward-trending, user-facing,
 value-added,
 web-enabled, well-modulated,
 zero administration, zero defect, zero tolerance
-
-:list: company$buzzwords3
 ability, access, adapter, algorithm, alliance, analyzer, application, approach, architecture, archive, artificial intelligence, array, attitude,
 benchmark, budgetary management,
 capability, capacity, challenge, circuit, collaboration, complexity, concept, conglomeration, contingency, core, customer loyalty,
@@ -328,15 +324,13 @@ utilisation,
 website, workforce
 
 # BS wordlist from http://dack.com/web/bullshit.html
-:list: company$bs1
+:list: company$bs
 implement, utilize, integrate, streamline, optimize, evolve, transform, embrace, enable, orchestrate,
 leverage, reinvent, aggregate, architect, enhance, incentivize, morph, empower, envisioneer, monetize,
 harness, facilitate, seize, disintermediate, synergize, strategize, deploy, brand, grow, target,
 syndicate, synthesize, deliver, mesh, incubate, engage, maximize, benchmark, expedite, reintermediate,
 whiteboard, visualize, repurpose, innovate, scale, unleash, drive, extend, engineer, revolutionize,
 generate, exploit, transition, e-enable, iterate, cultivate, matrix, productize, redefine, recontextualize
-
-:list: company$bs2
 clicks-and-mortar, value-added, vertical, proactive, robust, revolutionary, scalable, leading-edge, innovative,
 intuitive, strategic, e-business, mission-critical, sticky, one-to-one, 24/7, end-to-end, global, B2B, B2C,
 granular, frictionless, virtual, viral, dynamic, 24/365, best-of-breed, killer, magnetic, bleeding-edge,
@@ -344,8 +338,6 @@ web-enabled, interactive, dot-com, sexy, back-end, real-time, efficient, front-e
 extensible, turn-key, world-class, open-source, cross-platform, cross-media, synergistic, bricks-and-clicks,
 out-of-the-box, enterprise, integrated, impactful, wireless, transparent, next-generation, cutting-edge,
 user-centric, visionary, customized, ubiquitous, plug-and-play, collaborative, compelling, holistic, rich
-
-:list: company$bs3
 synergies, web-readiness, paradigms, markets, partnerships, infrastructures, platforms, initiatives, channels,
 eyeballs, communities, ROI, solutions, e-tailers, e-services, action-items, portals, niches, technologies,
 content, vortals, supply-chains, convergence, relationships, architectures, interfaces, e-markets,

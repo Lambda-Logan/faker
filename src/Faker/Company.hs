@@ -1,34 +1,32 @@
 module Faker.Company
 (
-  buzzwords1
-, buzzwords2
-, buzzwords3
-, bs1
-, bs2
-, bs3
+  buzzwords
+, bs
 , suffix
+, name
 )
 where
 
 import Faker.Utils
+import qualified Faker.Name as N
 
-buzzwords1 :: IO String
-buzzwords1 = randomCompanyWord "buzzwords1"
+name :: IO String
+name = do
+    ind <- randomNum (0,2)
+    name1 <- N.lastName
+    name2 <- N.lastName
+    name3 <- N.lastName
+    suff  <- suffix
+    case ind of
+      0         -> return $ name1 ++ " " ++ suff
+      1         -> return $ name1 ++ "-" ++ name2
+      otherwise -> return $ name1 ++ ", " ++ name2 ++ " and " ++ name3
 
-buzzwords2 :: IO String
-buzzwords2 = randomCompanyWord "buzzwords2"
+buzzwords :: IO String
+buzzwords = randomCompanyWord "buzzwords"
 
-buzzwords3 :: IO String
-buzzwords3 = randomCompanyWord "buzzwords3"
-
-bs1 :: IO String
-bs1 = randomCompanyWord "bs1"
-
-bs2 :: IO String
-bs2 = randomCompanyWord "bs2"
-
-bs3 :: IO String
-bs3 = randomCompanyWord "bs3"
+bs :: IO String
+bs = randomCompanyWord "bs"
 
 suffix :: IO String
 suffix = randomCompanyWord "suffix"
