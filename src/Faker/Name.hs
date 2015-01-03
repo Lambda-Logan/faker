@@ -5,6 +5,8 @@ module Faker.Name
 , fullName
 , prefix
 , suffix
+, name
+, title
 )
 where
 
