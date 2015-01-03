@@ -9,22 +9,7 @@ module Faker.Name
 where
 
 import System.Random
-import Control.Applicative
-import Control.Monad
-import Data.Maybe
 import Gimlh -- need to renew
-
-fetch :: SimpleGiml -> String -> Maybe GimlVal
-fetch [] _ = Nothing
-fetch ((key, val):xs) req = if key == req
-                              then return val
-                              else fetch xs req
-
-val2List :: GimlVal -> [String]
-val2List (List val)   = val
-val2List (Text val)   = [val]
-val2List (Number val) = [show val]
-val2List (Float val)  = [show val]
 
 namesList :: String -> IO [String]
 namesList namesType = do
@@ -49,9 +34,9 @@ lastName = name "last_name"
 
 fullName :: IO String
 fullName = do
-    first <- firstName
-    last  <- lastName
-    return $ first ++ " " ++ last
+    firstPart <- firstName
+    lastPart  <- lastName
+    return $ firstPart ++ " " ++ lastPart
 
 prefix :: IO String
 prefix = name "prefix"
