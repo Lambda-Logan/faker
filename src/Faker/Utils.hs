@@ -47,18 +47,20 @@ replaceExpressions :: String -> IO String
 replaceExpressions [] = return ""
 replaceExpressions [a] = return [a]
 replaceExpressions (x:y:xs) = do
-  case y of
-    '{'       -> replicateChars x (y:xs) >>= replaceExpressions
-    otherwise -> case x of
-                   '['       -> randomizeChar (x:y:xs) >>= replaceExpressions (y:xs)
-                   otherwise -> x : replaceExpressions (y:xs)
+    case y of
+      '{'       -> replicateChars x (y:xs) >>= replaceExpressions
+      otherwise -> case x of
+                     '['       -> randomizeChar (x:y:xs) >>= replaceExpressions
+                     otherwise -> do
+                       rest <- replaceExpressions (y:xs)
+                       return $ x : rest
 
 replicateChars :: Char -> String -> IO String
 replicateChars char rest = do
   gen <- newStdGen
   let splittedLine = splitOn "}" rest
       range = read $ "(" ++ (tail $ head splittedLine) ++ ")" :: (Int, Int)
-      replicated = replicate (randomR range gen) char
+      replicated = replicate (fst $ randomR range gen) char
       restOfLine = intercalate "}" (tail splittedLine)
   return $ replicated ++ restOfLine
 
@@ -68,6 +70,6 @@ randomizeChar rest = do
   let splittedLine = splitOn "]" rest
       rangeNumbers = intercalate "," (splitOn "-" (tail $ head splittedLine))
       range = read $ "(" ++ rangeNumbers ++ ")" :: (Int, Int)
-      randomized = show $ randomR range gen
+      randomized = show $ (fst $ randomR range gen)
       restOfLine = intercalate "]" (tail splittedLine)
   return $ randomized ++ restOfLine
