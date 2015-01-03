@@ -8,29 +8,13 @@ module Faker.Name
 )
 where
 
-import System.Random
-import Gimlh -- need to renew
-
-namesList :: String -> IO [String]
-namesList namesType = do
-    contents <- parseFile "../data/en.giml"
-    let fetchedVal = fetch (simplifyGiml contents) namesType
-    case fetchedVal of
-      Nothing    -> return []
-      (Just val) -> return $ val2List val
-
-name :: String -> IO String
-name nameType = do
-    gen <- newStdGen
-    names <- namesList ("name$" ++ nameType)
-    let ind = fst $ randomR (0, length names - 1) gen
-    return $ names !! ind
+import Faker.Fetcher
 
 firstName :: IO String
-firstName = name "first_name"
+firstName = randomName "first_name"
 
 lastName :: IO String
-lastName = name "last_name"
+lastName = randomName "last_name"
 
 fullName :: IO String
 fullName = do
@@ -39,7 +23,10 @@ fullName = do
     return $ firstPart ++ " " ++ lastPart
 
 prefix :: IO String
-prefix = name "prefix"
+prefix = randomName "prefix"
 
 suffix :: IO String
-suffix = name "suffix"
+suffix = randomName "suffix"
+
+randomName :: String -> IO String
+randomName attr = randomValue "name" attr
