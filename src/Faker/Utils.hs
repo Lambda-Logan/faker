@@ -2,6 +2,7 @@ module Faker.Utils
 (
   valsList
 , randomValue
+, replaceSymbols
 )
 where
 
@@ -22,3 +23,12 @@ randomValue namespace valType = do
     vals <- valsList (namespace ++ "$" ++ valType)
     let ind = fst $ randomR (0, length vals - 1) gen
     return $ vals !! ind
+
+replaceSymbols :: String -> IO String
+replaceSymbols [] = return ""
+replaceSymbols (x:xs) = do
+    gen <- newStdGen
+    restOfLine <- replaceSymbols xs
+    case x of
+      '#' -> return $ (show $ (fst (randomR (0,9) gen) :: Int)) ++ restOfLine
+      otherwise -> return $ x : restOfLine

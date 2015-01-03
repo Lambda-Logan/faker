@@ -131,10 +131,12 @@ Apt. ###, Suite ###
 
 # Though these are US-specific, they are here (in the default locale) for backwards compatibility
 :list: address$postcode
-#####, #####-####
+- #####
+- #####-####
 
 :list: address$postcode_by_state
-#####, #####-####
+- #####
+- #####-####
 
 :list: address$state
 Alabama, Alaska, Arizona, Arkansas,

@@ -1,4 +1,4 @@
-module Faker.Adress
+module Faker.Address
 (
   cityPrefix
 , citySuffix
@@ -6,13 +6,14 @@ module Faker.Adress
 , countryCode
 , buildingNumber
 , streetSuffix
-, secondaryAdress
+, secondaryAddress
 , postcode
 , postcodeByState
 , state
 , stateAbbr
 , timeZone
 , defaultCountry
+, randomAddress
 )
 where
 
@@ -30,23 +31,32 @@ country = randomAddress "country"
 countryCode :: IO String
 countryCode = randomAddress "country_code"
 
-countryCode :: IO String
-countryCode = randomAddress "country_code"
-
 buildingNumber :: IO String
-buildingNumber = randomAddress "building_number"
+buildingNumber = randomAddress "building_number" >>= replaceSymbols
 
 streetSuffix :: IO String
 streetSuffix = randomAddress "street_suffix"
 
 secondaryAddress :: IO String
-secondaryAddress = randomAddress "secondary_address"
+secondaryAddress = randomAddress "secondary_address" >>= replaceSymbols
 
 postcode :: IO String
-postcode = randomAddress "postcode"
+postcode = randomAddress "postcode" >>= replaceSymbols
 
 postcodeByState :: IO String
-postcodeByState = randomAddress "postcode_by_state"
+postcodeByState = randomAddress "postcode_by_state" >>= replaceSymbols
+
+state :: IO String
+state = randomAddress "state"
+
+stateAbbr :: IO String
+stateAbbr = randomAddress "state_abbr"
+
+timeZone :: IO String
+timeZone = randomAddress "time_zone"
+
+defaultCountry :: IO String
+defaultCountry = randomAddress "default_country"
 
 randomAddress :: String -> IO String
 randomAddress attr = randomValue "address" attr
