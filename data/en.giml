@@ -97,7 +97,9 @@ YE, YT,
 ZA, ZM, ZW
 
 :list: address$building_number
-#####, ####, ###
+- #####
+- ####
+- ###
 
 :list: address$street_suffix
 Alley, Avenue,
