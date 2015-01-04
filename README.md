@@ -1,6 +1,6 @@
-# Faker [0.0.0.2](http://hackage.haskell.org/package/faker)
+# Faker
 
-**Faker** is pure Haskell library for generating fake data.
+**Faker** (v. [0.0.0.2](http://hackage.haskell.org/package/faker)) is pure Haskell library for generating fake data.
 
 ```
   “It comes in very handy for taking screenshots (taking screenshots for my project,
