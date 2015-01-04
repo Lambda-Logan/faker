@@ -104,4 +104,4 @@ defaultCountry :: IO String
 defaultCountry = randomAddress "default_country"
 
 randomAddress :: String -> IO String
-randomAddress attr = randomValue "address" attr
+randomAddress = randomValue "address"

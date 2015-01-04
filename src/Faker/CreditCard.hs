@@ -62,17 +62,17 @@ addLuhnSum numberString = do
     let numbers = collectNumbers numberString
         luhnSum = countLuhnSum numbers 2
         luhnDigit = (10 - (luhnSum `mod` 10)) `mod` 10
-    return $ (init numberString) ++ (show luhnDigit)
+    return $ init numberString ++ show luhnDigit
 
 countLuhnSum :: [Int] -> Int -> Int
 countLuhnSum [] _ = 0
 countLuhnSum (x:xs) m = let nextM = if m == 2 then 1 else 2 in
-                            (luhnStep x m) + (countLuhnSum xs nextM)
+                            luhnStep x m + countLuhnSum xs nextM
 
 luhnStep :: Int -> Int -> Int
 luhnStep x m = sum $ map digitToInt (show (x * m))
 
 collectNumbers :: String -> [Int]
 collectNumbers [] = []
-collectNumbers str = foldl (\a x -> if isDigit x then (digitToInt x) : a else a) [] str
+collectNumbers str = foldl (\a x -> if isDigit x then digitToInt x : a else a) [] str
 

@@ -18,4 +18,4 @@ creditCardType :: IO String
 creditCardType = randomBusinessWord "credit_card_type"
 
 randomBusinessWord :: String -> IO String
-randomBusinessWord attr = randomValue "business" attr
+randomBusinessWord = randomValue "business"

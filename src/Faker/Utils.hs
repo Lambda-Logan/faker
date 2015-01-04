@@ -39,7 +39,7 @@ replaceSymbols (x:xs) = do
     gen <- newStdGen
     restOfLine <- replaceSymbols xs
     return $ case x of
-               '#' -> (show $ (fst (randomR (0,9) gen) :: Int)) ++ restOfLine
+               '#' -> show (fst (randomR (0,9) gen) :: Int) ++ restOfLine
                _   -> x : restOfLine
 
 evalRegex :: String -> IO String
@@ -52,8 +52,7 @@ evalRegex regex = do
 replaceExpressions :: String -> IO String
 replaceExpressions [] = return ""
 replaceExpressions [a] = return [a]
-replaceExpressions (x:y:xs) = do
-    case y of
+replaceExpressions (x:y:xs) = case y of
       '{' -> replicateChars x (y:xs) >>= replaceExpressions
       _   -> case x of
                '[' -> randomizeChar (x:y:xs) >>= replaceExpressions
@@ -65,7 +64,7 @@ replicateChars :: Char -> String -> IO String
 replicateChars char rest = do
   gen <- newStdGen
   let splittedLine = splitOn "}" rest
-      range = read $ "(" ++ (tail $ head splittedLine) ++ ")" :: (Int, Int)
+      range = read $ "(" ++ tail (head splittedLine) ++ ")" :: (Int, Int)
       replicated = replicate (fst $ randomR range gen) char
       restOfLine = intercalate "}" (tail splittedLine)
   return $ replicated ++ restOfLine
@@ -76,6 +75,6 @@ randomizeChar rest = do
   let splittedLine = splitOn "]" rest
       rangeNumbers = intercalate "," (splitOn "-" (tail $ head splittedLine))
       range = read $ "(" ++ rangeNumbers ++ ")" :: (Int, Int)
-      randomized = show $ (fst $ randomR range gen)
+      randomized = show $ fst (randomR range gen)
       restOfLine = intercalate "]" (tail splittedLine)
   return $ randomized ++ restOfLine

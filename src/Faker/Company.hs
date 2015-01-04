@@ -48,4 +48,4 @@ logo :: IO String
 logo = undefined
 
 randomCompanyWord :: String -> IO String
-randomCompanyWord attr = randomValue "company" attr
+randomCompanyWord = randomValue "company"

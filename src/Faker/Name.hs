@@ -43,7 +43,7 @@ title = do
     return $ unwords [descriptor, level, job]
 
 randomName :: String -> IO String
-randomName attr = randomValue "name" attr
+randomName = randomValue "name"
 
 randomTitle :: String -> IO String
-randomTitle attr = randomValue "title" attr
+randomTitle = randomValue "title"

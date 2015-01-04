@@ -24,4 +24,4 @@ author = do
       _ -> C.name
 
 randomAppWord :: String -> IO String
-randomAppWord attr = randomValue "app" attr
+randomAppWord = randomValue "app"

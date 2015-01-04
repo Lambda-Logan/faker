@@ -39,4 +39,4 @@ paragraphs :: IO String
 paragraphs = undefined
 
 randomLoremWord :: String -> IO String
-randomLoremWord attr = randomValue "lorem" attr
+randomLoremWord = randomValue "lorem"
