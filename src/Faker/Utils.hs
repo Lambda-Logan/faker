@@ -12,10 +12,12 @@ import System.Random (newStdGen, randomR)
 import Gimlh -- need to renew
 import Data.List.Split (splitOn)
 import Data.List (intercalate)
+import Paths_faker
 
 valsList :: String -> IO [String]
 valsList valsType = do
-    contents <- parseFile "../data/en.giml"
+    filePath <- getDataFileName "data/en.giml"
+    contents <- parseFile filePath
     let fetchedVal = fetch (simplifyGiml contents) valsType
     case fetchedVal of
       Nothing    -> return []

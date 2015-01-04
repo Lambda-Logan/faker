@@ -17,6 +17,7 @@ License-File:  LICENSE
 Category:      Testing
 Cabal-Version: >= 1.8
 Build-Type:    Simple
+Data-Files:    data/*.giml
 
 Source-Repository head
   Type:     git
@@ -26,7 +27,18 @@ Library
   HS-Source-Dirs: src
 
   Exposed-Modules:
-    Faker
+      Faker
+    , Faker.Name
+    , Faker.Address
+    , Faker.CreditCard
+    , Faker.Company
+    , Faker.Internet
+    , Faker.App
+    , Faker.Business
+    , Faker.Lorem
+    , Faker.Utils
+
+  Other-Modules: Paths_faker
 
   GHC-Options: -Wall
   Build-Depends: base >= 4.5 && < 5, gimlh >= 0.1.1.0, random, split >= 0.2.0
