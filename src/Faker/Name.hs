@@ -19,9 +19,9 @@ name = do
     fName <- firstName
     lName <- lastName
     return $ case ind of
-               0         -> unwords [pref, fName, lName]
-               1         -> unwords [fName, lName, suff]
-               otherwise -> fName ++ " " ++ lName
+               0 -> unwords [pref, fName, lName]
+               1 -> unwords [fName, lName, suff]
+               _ -> fName ++ " " ++ lName
 
 firstName :: IO String
 firstName = randomName "first_name"

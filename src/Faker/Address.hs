@@ -33,10 +33,10 @@ city = do
     suff  <- citySuffix
     ind   <- randomNum (0,3)
     return $ case ind of
-               0         -> pref ++ " " ++ fName ++ suff
-               1         -> pref ++ " " ++ fName
-               2         -> fName ++ suff
-               otherwise -> lName ++ suff
+               0 -> pref ++ " " ++ fName ++ suff
+               1 -> pref ++ " " ++ fName
+               2 -> fName ++ suff
+               _ -> lName ++ suff
 
 streetName :: IO String
 streetName = do
@@ -45,8 +45,8 @@ streetName = do
     suff  <- streetSuffix
     ind   <- randomNum (0,1)
     return $ case ind of
-               0         -> fName ++ " " ++ suff
-               otherwise -> lName ++ " " ++ suff
+               0 -> fName ++ " " ++ suff
+               _ -> lName ++ " " ++ suff
 
 streetAddress :: IO String
 streetAddress = do
@@ -57,12 +57,12 @@ streetAddress = do
 latitude :: IO String
 latitude = do
     num <- randomNum (1,99)
-    return . show $ (fromIntegral num / 100) * 180 - 90
+    return . show $ ((fromIntegral num :: Double) / 100) * 180 - 90
 
 longitude :: IO String
 longitude = do
     num <- randomNum (1,99)
-    return . show $ (fromIntegral num / 100) * 360 - 180
+    return . show $ ((fromIntegral num :: Double) / 100) * 360 - 180
 
 cityPrefix :: IO String
 cityPrefix = randomAddress "city_prefix"

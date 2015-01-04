@@ -12,6 +12,7 @@ module Faker.Lorem
 where
 
 import Faker.Utils
+import Prelude hiding (words)
 
 word :: IO String
 word = randomLoremWord "words"

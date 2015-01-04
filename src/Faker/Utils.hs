@@ -38,9 +38,9 @@ replaceSymbols [] = return ""
 replaceSymbols (x:xs) = do
     gen <- newStdGen
     restOfLine <- replaceSymbols xs
-    case x of
-      '#' -> return $ (show $ (fst (randomR (0,9) gen) :: Int)) ++ restOfLine
-      otherwise -> return $ x : restOfLine
+    return $ case x of
+               '#' -> (show $ (fst (randomR (0,9) gen) :: Int)) ++ restOfLine
+               _   -> x : restOfLine
 
 evalRegex :: String -> IO String
 evalRegex regex = do
@@ -54,12 +54,12 @@ replaceExpressions [] = return ""
 replaceExpressions [a] = return [a]
 replaceExpressions (x:y:xs) = do
     case y of
-      '{'       -> replicateChars x (y:xs) >>= replaceExpressions
-      otherwise -> case x of
-                     '['       -> randomizeChar (x:y:xs) >>= replaceExpressions
-                     otherwise -> do
-                       rest <- replaceExpressions (y:xs)
-                       return $ x : rest
+      '{' -> replicateChars x (y:xs) >>= replaceExpressions
+      _   -> case x of
+               '[' -> randomizeChar (x:y:xs) >>= replaceExpressions
+               _   -> do
+                        rest <- replaceExpressions (y:xs)
+                        return $ x : rest
 
 replicateChars :: Char -> String -> IO String
 replicateChars char rest = do

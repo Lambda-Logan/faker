@@ -20,8 +20,8 @@ author :: IO String
 author = do
     ind <- randomNum (0,1)
     case ind of
-      0         -> N.name
-      otherwise -> C.name
+      0 -> N.name
+      _ -> C.name
 
 randomAppWord :: String -> IO String
 randomAppWord attr = randomValue "app" attr

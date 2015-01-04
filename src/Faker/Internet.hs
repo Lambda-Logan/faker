@@ -40,7 +40,7 @@ userName = do
     return $ case ind of
                0 -> loweredFName ++ "." ++ loweredLName
                1 -> (head loweredFName):'.':loweredLName
-               2 -> (head loweredFName):loweredLName
+               _ -> (head loweredFName):loweredLName
 
 loweredLetters :: String -> String
 loweredLetters str = map toLower $ filter isLetter str
