@@ -2,9 +2,14 @@
 
 **Faker** is pure Haskell library for generating fake data.
 
-  “It comes in very handy for taking screenshots (taking screenshots for my project, Catch the Best was the original   impetus for the creation of this gem), having real-looking test data, and having your database populated with more   than one or two records while you're doing development.”
-                                        
-                                        @stympy, creator of faker gem for Ruby
+```
+  “It comes in very handy for taking screenshots (taking screenshots for my project,
+  Catch the Best was the original impetus for the creation of this gem), 
+  having real-looking test data, and having your database populated with more
+  than one or two records while you're doing development.” 
+  
+                                              @stympy, creator of faker gem for Ruby
+```
 
 Inspired by:
 
