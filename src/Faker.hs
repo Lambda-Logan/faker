@@ -6,6 +6,7 @@ module Faker
 , module Faker.CreditCard
 , module Faker.Company
 , module Faker.Internet
+, module Faker.App
 )
 where
 
@@ -15,3 +16,4 @@ import qualified Faker.Address
 import qualified Faker.CreditCard
 import qualified Faker.Company
 import qualified Faker.Internet
+import qualified Faker.App
