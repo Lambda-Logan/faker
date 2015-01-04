@@ -1,6 +1,8 @@
 module Faker.Address
 (
   city
+, streetName
+, streetAddress
 , cityPrefix
 , citySuffix
 , country
@@ -29,10 +31,26 @@ city = do
     suff  <- citySuffix
     ind   <- randomNum (0,3)
     return $ case ind of
-               0 -> pref ++ " " ++ fName ++ suff
-               1 -> pref ++ " " ++ fName
-               2 -> fName ++ suff
-               3 -> lName ++ suff
+               0         -> pref ++ " " ++ fName ++ suff
+               1         -> pref ++ " " ++ fName
+               2         -> fName ++ suff
+               otherwise -> lName ++ suff
+
+streetName :: IO String
+streetName = do
+    fName <- N.firstName
+    lName <- N.lastName
+    suff  <- streetSuffix
+    ind   <- randomNum (0,1)
+    return $ case ind of
+               0         -> fName ++ " " ++ suff
+               otherwise -> lName ++ " " ++ suff
+
+streetAddress :: IO String
+streetAddress = do
+    sName <- streetName
+    bNum  <- buildingNumber
+    return $ bNum ++ " " ++ sName
 
 cityPrefix :: IO String
 cityPrefix = randomAddress "city_prefix"
