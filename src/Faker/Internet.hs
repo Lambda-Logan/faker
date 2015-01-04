@@ -11,7 +11,6 @@ where
 
 import Faker.Utils
 import qualified Faker.Name as N
-import qualified Faker.Company as C
 import Data.Char
 
 email :: IO String
