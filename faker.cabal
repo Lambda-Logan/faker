@@ -1,8 +1,11 @@
 Name:     faker
-Version:  0.0.0.1
+Version:  0.0.0.2
 Synopsis: Pure Haskell library for generating fake data
 Description:
   No description yet
+  .
+  > 0.0.0.2
+  >  - Small data fix for address
   .
   > 0.0.0.1
   >  - Init version
