@@ -37,10 +37,10 @@ userName = do
     let loweredFName = loweredLetters fName
         loweredLName = loweredLetters lName
     ind <- randomNum (0,2)
-    case ind of
-      0 -> return $ loweredFName ++ "." ++ loweredLName
-      1 -> return $ (head loweredFName):'.':loweredLName
-      2 -> return $ (head loweredFName):loweredLName
+    return $ case ind of
+               0 -> loweredFName ++ "." ++ loweredLName
+               1 -> (head loweredFName):'.':loweredLName
+               2 -> (head loweredFName):loweredLName
 
 loweredLetters :: String -> String
 loweredLetters str = map toLower $ filter isLetter str

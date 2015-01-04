@@ -1,6 +1,7 @@
 module Faker.Address
 (
-  cityPrefix
+  city
+, cityPrefix
 , citySuffix
 , country
 , countryCode
@@ -18,6 +19,20 @@ module Faker.Address
 where
 
 import Faker.Utils
+import qualified Faker.Name as N
+
+city :: IO String
+city = do
+    fName <- N.firstName
+    lName <- N.lastName
+    pref  <- cityPrefix
+    suff  <- citySuffix
+    ind   <- randomNum (0,3)
+    return $ case ind of
+               0 -> pref ++ " " ++ fName ++ suff
+               1 -> pref ++ " " ++ fName
+               2 -> fName ++ suff
+               3 -> lName ++ suff
 
 cityPrefix :: IO String
 cityPrefix = randomAddress "city_prefix"

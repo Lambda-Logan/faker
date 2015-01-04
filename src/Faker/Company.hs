@@ -21,10 +21,10 @@ name = do
     name2 <- N.lastName
     name3 <- N.lastName
     suff  <- suffix
-    case ind of
-      0         -> return $ name1 ++ " " ++ suff
-      1         -> return $ name1 ++ "-" ++ name2
-      otherwise -> return $ name1 ++ ", " ++ name2 ++ " and " ++ name3
+    return $ case ind of
+               0         -> name1 ++ " " ++ suff
+               1         -> name1 ++ "-" ++ name2
+               otherwise -> name1 ++ ", " ++ name2 ++ " and " ++ name3
 
 buzzwords :: IO String
 buzzwords = randomCompanyWord "buzzwords"

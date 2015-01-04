@@ -19,10 +19,10 @@ name = do
     suff <- suffix
     fName <- firstName
     lName <- lastName
-    case ind of
-      0         -> return $ unwords [pref, fName, lName]
-      1         -> return $ unwords [fName, lName, suff]
-      otherwise -> return $ fName ++ " " ++ lName
+    return $ case ind of
+               0         -> unwords [pref, fName, lName]
+               1         -> unwords [fName, lName, suff]
+               otherwise -> fName ++ " " ++ lName
 
 firstName :: IO String
 firstName = randomName "first_name"
