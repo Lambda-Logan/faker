@@ -1,6 +1,7 @@
 module Faker.Internet
 (
   freeEmailDomain
+, generateEmail
 , domainSuffix
 , email
 , freeEmail
@@ -15,23 +16,19 @@ import Data.Char
 
 email :: IO String
 email = do
-    uName <- userName
+    cName  <- N.lastName
     domain <- domainSuffix
-    cName <- N.lastName
     let lDomain = (loweredLetters cName) ++ "." ++ domain
-    return $ uName ++ "@" ++ lDomain
+    generateEmail lDomain
 
 freeEmail :: IO String
-freeEmail = do
-    uName <- userName
-    domain <- freeEmailDomain
-    return $ uName ++ "@" ++ domain
+freeEmail = freeEmailDomain >>= generateEmail
 
 safeEmail :: IO String
-safeEmail = do
-    uName <- userName
-    domain <- domainSuffix
-    return $ uName ++ "@example." ++ domain
+safeEmail = domainSuffix >>= generateEmail . ("example." ++)
+
+generateEmail :: String -> IO String
+generateEmail domain = userName >>= return . (++ "@" ++ domain)
 
 userName :: IO String
 userName = do
