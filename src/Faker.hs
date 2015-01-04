@@ -8,6 +8,7 @@ module Faker
 , module Faker.Internet
 , module Faker.App
 , module Faker.Business
+, module Faker.Lorem
 )
 where
 
@@ -19,3 +20,4 @@ import qualified Faker.Company
 import qualified Faker.Internet
 import qualified Faker.App
 import qualified Faker.Business
+import qualified Faker.Lorem
