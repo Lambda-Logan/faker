@@ -3,6 +3,8 @@ module Faker.Address
   city
 , streetName
 , streetAddress
+, latitude
+, longitude
 , cityPrefix
 , citySuffix
 , country
@@ -51,6 +53,16 @@ streetAddress = do
     sName <- streetName
     bNum  <- buildingNumber
     return $ bNum ++ " " ++ sName
+
+latitude :: IO String
+latitude = do
+    num <- randomNum (1,99)
+    return . show $ (fromIntegral num / 100) * 180 - 90
+
+longitude :: IO String
+longitude = do
+    num <- randomNum (1,99)
+    return . show $ (fromIntegral num / 100) * 360 - 180
 
 cityPrefix :: IO String
 cityPrefix = randomAddress "city_prefix"
