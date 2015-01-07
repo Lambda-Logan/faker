@@ -1,6 +1,8 @@
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 module Faker.Utils
 (
-  valsList
+  runFaker
+, valsList
 , randomValue
 , randomNum
 , replaceSymbols
@@ -12,60 +14,72 @@ import System.Random (newStdGen, randomR)
 import Gimlh
 import Data.List.Split (splitOn)
 import Data.List (intercalate)
+import Control.Monad.State
+import Control.Applicative
 import Paths_faker
 
-newtype Faker a = State FakerData a
+data FakerData = FakerData {
+    gimlData :: SimpleGiml,
+    stdGen :: StdGen
+  }
 
-loadFakerData :: IO SimpleGiml
-loadFakerData = do
-    filePath <- getDataFileName "data/en.giml"
-    contents <- parseFile filePath
+newtype Faker a = Faker (State FakerData a)
+  deriving (Functor, Monad, Applicative, MonadState FakerData)
+
+loadGimlData :: FilePath -> IO SimpleGiml
+loadGimlData fname = do
+    -- filePath <- getDataFileName "data/en.giml"
+    contents <- parseFile fname
     return $ simplifyGiml contents
 
 runFaker :: Faker a -> IO a
-runFaker faker = do
-    myData <- loadFakerData
-    gen <- newStdGen
-    return $ runState
+runFaker (Faker action) = do
+  gimlData <- loadGimlData "../data/en.giml"
+  stdGen <- newStdGen
+  let fakerData = FakerData { gimlData = gimlData, stdGen = stdGen }
 
-valsList :: String -> IO [String]
-valsList valsType = do
-    filePath <- getDataFileName "data/en.giml"
-    contents <- parseFile filePath
-    let fetchedVal = fetch (simplifyGiml contents) valsType
-    case fetchedVal of
-      Nothing    -> return []
-      (Just val) -> return $ val2List val
+  return $ evalState action fakerData
 
-randomValue :: String -> String -> IO String
+readFromGiml :: String -> Faker [String]
+readFromGiml thing = do
+  -- get the giml data from the state
+  d <- gets gimlData
+  case fetch d thing of -- just lookup the result as if it were a map
+    Just x -> return $ val2List x
+    Nothing -> error "no element and sucky error handling"
+
+randomValue :: String -> String -> Faker String
 randomValue namespace valType = do
-    gen <- newStdGen
-    vals <- valsList (namespace ++ "$" ++ valType)
-    let ind = fst $ randomR (0, length vals - 1) gen
-    return $ vals !! ind
+    valList <- readFromGiml (namespace ++ "$" ++ valType)
+    ind <- randomInt (0, length valList)
+    return $ valList !! ind
 
-randomNum :: (Int, Int) -> IO Int
-randomNum range = do
-    gen <- newStdGen
-    return $ fst (randomR range gen)
+randomInt :: (Int, Int) -> Faker Int
+randomInt bounds = do
+  state <- get
 
-replaceSymbols :: String -> IO String
+  let (int, newGen) = randomR bounds (stdGen state)
+
+  put (state { stdGen = newGen })
+
+  return int
+
+replaceSymbols :: String -> Faker String
 replaceSymbols [] = return ""
 replaceSymbols (x:xs) = do
-    gen <- newStdGen
     restOfLine <- replaceSymbols xs
     return $ case x of
-               '#' -> show (fst (randomR (0,9) gen) :: Int) ++ restOfLine
+               '#' -> show (randomInt (0,9) :: Int) ++ restOfLine
                _   -> x : restOfLine
 
-evalRegex :: String -> IO String
+evalRegex :: String -> Faker String
 evalRegex regex = do
     let preparedRegex = if head regex == '/' && last regex == '/'
                           then init $ tail regex
                           else regex
     replaceExpressions preparedRegex >>= replaceSymbols
 
-replaceExpressions :: String -> IO String
+replaceExpressions :: String -> Faker String
 replaceExpressions [] = return ""
 replaceExpressions [a] = return [a]
 replaceExpressions (x:y:xs) = case y of
@@ -76,21 +90,19 @@ replaceExpressions (x:y:xs) = case y of
                         rest <- replaceExpressions (y:xs)
                         return $ x : rest
 
-replicateChars :: Char -> String -> IO String
+replicateChars :: Char -> String -> Faker String
 replicateChars char rest = do
-  gen <- newStdGen
   let splittedLine = splitOn "}" rest
       range = read $ "(" ++ tail (head splittedLine) ++ ")" :: (Int, Int)
-      replicated = replicate (fst $ randomR range gen) char
+      replicated = replicate (randomInt range) char
       restOfLine = intercalate "}" (tail splittedLine)
   return $ replicated ++ restOfLine
 
-randomizeChar :: String -> IO String
+randomizeChar :: String -> Faker String
 randomizeChar rest = do
-  gen <- newStdGen
   let splittedLine = splitOn "]" rest
       rangeNumbers = intercalate "," (splitOn "-" (tail $ head splittedLine))
       range = read $ "(" ++ rangeNumbers ++ ")" :: (Int, Int)
-      randomized = show $ fst (randomR range gen)
+      randomized = show $ randomInt range
       restOfLine = intercalate "]" (tail splittedLine)
   return $ randomized ++ restOfLine
