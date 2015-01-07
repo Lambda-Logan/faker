@@ -9,10 +9,24 @@ module Faker.Utils
 where
 
 import System.Random (newStdGen, randomR)
-import Gimlh -- need to renew
+import Gimlh
 import Data.List.Split (splitOn)
 import Data.List (intercalate)
 import Paths_faker
+
+newtype Faker a = State FakerData a
+
+loadFakerData :: IO SimpleGiml
+loadFakerData = do
+    filePath <- getDataFileName "data/en.giml"
+    contents <- parseFile filePath
+    return $ simplifyGiml contents
+
+runFaker :: Faker a -> IO a
+runFaker faker = do
+    myData <- loadFakerData
+    gen <- newStdGen
+    return $ runState
 
 valsList :: String -> IO [String]
 valsList valsType = do
