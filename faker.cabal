@@ -46,4 +46,4 @@ Library
   Other-Modules: Paths_faker
 
   GHC-Options: -Wall
-  Build-Depends: base >= 4.7 && < 5, gimlh >= 0.1.2.0, random, split >= 0.2.0
+  Build-Depends: base >= 4.7 && < 5, gimlh >= 0.1.2.0, random, split >= 0.2.0, mtl
