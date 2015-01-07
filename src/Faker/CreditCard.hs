@@ -55,7 +55,10 @@ laser :: IO String
 laser = randomCardNumber "laser"
 
 randomCardNumber :: String -> IO String
-randomCardNumber attr = randomValue "credit_card" attr >>= evalRegex >>= return $ addLuhnSum
+randomCardNumber attr = do
+    cardNum <- randomValue "credit_card" attr
+    filledNum <- evalRegex cardNum
+    return $ addLuhnSum filledNum
 
 addLuhnSum :: String -> String
 addLuhnSum numberString = let
