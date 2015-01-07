@@ -55,14 +55,15 @@ laser :: IO String
 laser = randomCardNumber "laser"
 
 randomCardNumber :: String -> IO String
-randomCardNumber attr = randomValue "credit_card" attr >>= evalRegex >>= addLuhnSum
+randomCardNumber attr = randomValue "credit_card" attr >>= evalRegex >>= return $ addLuhnSum
 
-addLuhnSum :: String -> IO String
-addLuhnSum numberString = do
-    let numbers = collectNumbers numberString
-        luhnSum = countLuhnSum numbers 2
-        luhnDigit = (10 - (luhnSum `mod` 10)) `mod` 10
-    return $ init numberString ++ show luhnDigit
+addLuhnSum :: String -> String
+addLuhnSum numberString = let
+    numbers = collectNumbers numberString
+    luhnSum = countLuhnSum numbers 2
+    luhnDigit = (10 - (luhnSum `mod` 10)) `mod` 10
+  in
+    init numberString ++ show luhnDigit
 
 countLuhnSum :: [Int] -> Int -> Int
 countLuhnSum [] _ = 0
