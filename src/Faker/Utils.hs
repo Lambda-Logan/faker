@@ -45,9 +45,8 @@ runFaker (Faker action) = do
 
 readFromGiml :: String -> Faker [String]
 readFromGiml thing = do
-  -- get the giml data from the state
   d <- gets gimlData
-  case fetch d thing of -- just lookup the result as if it were a map
+  case fetch d thing of
     Just x -> return $ val2List x
     Nothing -> error "no element and sucky error handling"
 
