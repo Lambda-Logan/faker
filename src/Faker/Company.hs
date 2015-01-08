@@ -16,7 +16,7 @@ import qualified Faker.Name as N
 
 name :: Faker String
 name = do
-    ind <- randomNum (0,2)
+    ind <- randomInt (0,2)
     name1 <- N.lastName
     name2 <- N.lastName
     name3 <- N.lastName
@@ -36,16 +36,25 @@ suffix :: Faker String
 suffix = randomCompanyWord "suffix"
 
 catchPhrase :: Faker String
-catchPhrase = undefined
+catchPhrase = do
+    num <- randomInt (3,10)
+    ws  <- sequence $ replicate num buzzwords
+    return $ unwords ws
 
 ein :: Faker String
-ein = undefined
+ein = replaceSymbols "##-#######"
 
 dunsNumber :: Faker String
-dunsNumber = undefined
+dunsNumber = replaceSymbols "##-###-####"
 
 logo :: Faker String
-logo = undefined
+logo = do
+    num <- randomInt (0,76)
+    let lNum = num + 1
+        period = if lNum < 10
+                   then "00"
+                   else "0"
+    return $ "http://www.biz-logo.com/examples/" ++ period ++ show lNum ++ ".gif"
 
 randomCompanyWord :: String -> Faker String
 randomCompanyWord = randomValue "company"
