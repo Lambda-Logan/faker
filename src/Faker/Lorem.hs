@@ -13,30 +13,45 @@ where
 
 import Faker.Utils
 import Prelude hiding (words)
+import Data.Char
 
 word :: Faker String
 word = randomLoremWord "words"
 
-words :: Faker String
-words = undefined
+wordOrSupplemental :: Faker String
+wordOrSupplemental = do
+    ind <- randomInt (0,1)
+    case ind of
+      0 -> word
+      _ -> randomLoremWord "supplemental"
 
-character :: Faker String
-character = undefined
+words :: Int -> Faker [String]
+words num = sequence $ replicate num wordOrSupplemental
 
-characters :: Faker String
-characters = undefined
+character :: Faker Char
+character = do
+    w <- word
+    ind <- randomInt (0, length w - 1)
+    return $ w !! ind
+
+characters :: Int -> Faker [Char]
+characters num = sequence $ replicate num character
 
 sentence :: Faker String
-sentence = undefined
+sentence = do
+    ws <- randomInt (3,12) >>= words
+    let sentence = unwords ws
+        result = (toUpper $ head sentence) : tail sentence ++ "."
+    return result
 
-sentences :: Faker String
-sentences = undefined
+sentences :: Int -> Faker [String]
+sentences num = sequence $ replicate num sentence
 
 paragraph :: Faker String
-paragraph = undefined
+paragraph = randomInt (3,6) >>= sentences >>= return . unwords
 
-paragraphs :: Faker String
-paragraphs = undefined
+paragraphs :: Int -> Faker [String]
+paragraphs num = sequence $ replicate num paragraph
 
 randomLoremWord :: String -> Faker String
 randomLoremWord = randomValue "lorem"
