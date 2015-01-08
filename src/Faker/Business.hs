@@ -8,14 +8,14 @@ where
 
 import Faker.Utils
 
-creditCardNumber :: IO String
+creditCardNumber :: Faker String
 creditCardNumber = randomBusinessWord "credit_card_number"
 
-creditCardExpiryDate :: IO String
+creditCardExpiryDate :: Faker String
 creditCardExpiryDate = randomBusinessWord "credit_card_expiry_date"
 
-creditCardType :: IO String
+creditCardType :: Faker String
 creditCardType = randomBusinessWord "credit_card_type"
 
-randomBusinessWord :: String -> IO String
+randomBusinessWord :: String -> Faker String
 randomBusinessWord = randomValue "business"

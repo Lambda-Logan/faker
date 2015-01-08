@@ -14,7 +14,7 @@ where
 import Faker.Utils
 import qualified Faker.Name as N
 
-name :: IO String
+name :: Faker String
 name = do
     ind <- randomNum (0,2)
     name1 <- N.lastName
@@ -26,26 +26,26 @@ name = do
                1 -> name1 ++ "-" ++ name2
                _ -> name1 ++ ", " ++ name2 ++ " and " ++ name3
 
-buzzwords :: IO String
+buzzwords :: Faker String
 buzzwords = randomCompanyWord "buzzwords"
 
-bs :: IO String
+bs :: Faker String
 bs = randomCompanyWord "bs"
 
-suffix :: IO String
+suffix :: Faker String
 suffix = randomCompanyWord "suffix"
 
-catchPhrase :: IO String
+catchPhrase :: Faker String
 catchPhrase = undefined
 
-ein :: IO String
+ein :: Faker String
 ein = undefined
 
-dunsNumber :: IO String
+dunsNumber :: Faker String
 dunsNumber = undefined
 
-logo :: IO String
+logo :: Faker String
 logo = undefined
 
-randomCompanyWord :: String -> IO String
+randomCompanyWord :: String -> Faker String
 randomCompanyWord = randomValue "company"
