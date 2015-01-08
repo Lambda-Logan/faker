@@ -14,29 +14,29 @@ where
 import Faker.Utils
 import Prelude hiding (words)
 
-word :: IO String
+word :: Faker String
 word = randomLoremWord "words"
 
-words :: IO String
+words :: Faker String
 words = undefined
 
-character :: IO String
+character :: Faker String
 character = undefined
 
-characters :: IO String
+characters :: Faker String
 characters = undefined
 
-sentence :: IO String
+sentence :: Faker String
 sentence = undefined
 
-sentences :: IO String
+sentences :: Faker String
 sentences = undefined
 
-paragraph :: IO String
+paragraph :: Faker String
 paragraph = undefined
 
-paragraphs :: IO String
+paragraphs :: Faker String
 paragraphs = undefined
 
-randomLoremWord :: String -> IO String
+randomLoremWord :: String -> Faker String
 randomLoremWord = randomValue "lorem"

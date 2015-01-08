@@ -15,29 +15,29 @@ import qualified Faker.Name as N
 import Data.Char
 import Control.Monad (liftM)
 
-email :: IO String
+email :: Faker String
 email = do
     cName  <- N.lastName
     domain <- domainSuffix
     let lDomain = loweredLetters cName ++ "." ++ domain
     generateEmail lDomain
 
-freeEmail :: IO String
+freeEmail :: Faker String
 freeEmail = freeEmailDomain >>= generateEmail
 
-safeEmail :: IO String
+safeEmail :: Faker String
 safeEmail = domainSuffix >>= generateEmail . ("example." ++)
 
-generateEmail :: String -> IO String
+generateEmail :: String -> Faker String
 generateEmail domain = liftM (++ "@" ++ domain) userName
 
-userName :: IO String
+userName :: Faker String
 userName = do
     fName <- N.firstName
     lName <- N.lastName
     let loweredFName = loweredLetters fName
         loweredLName = loweredLetters lName
-    ind <- randomNum (0,2)
+    ind <- randomInt (0,2)
     return $ case ind of
                0 -> loweredFName ++ "." ++ loweredLName
                1 -> head loweredFName : '.' :loweredLName
@@ -46,11 +46,11 @@ userName = do
 loweredLetters :: String -> String
 loweredLetters str = map toLower $ filter isLetter str
 
-freeEmailDomain :: IO String
+freeEmailDomain :: Faker String
 freeEmailDomain = randomInternetWord "free_email"
 
-domainSuffix :: IO String
+domainSuffix :: Faker String
 domainSuffix = randomInternetWord "domain_suffix"
 
-randomInternetWord :: String -> IO String
+randomInternetWord :: String -> Faker String
 randomInternetWord = randomValue "internet"

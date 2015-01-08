@@ -18,43 +18,43 @@ where
 import Data.Char (digitToInt, isDigit)
 import Faker.Utils
 
-visa :: IO String
+visa :: Faker String
 visa = randomCardNumber "visa"
 
-mastercard :: IO String
+mastercard :: Faker String
 mastercard = randomCardNumber "mastercard"
 
-discover :: IO String
+discover :: Faker String
 discover = randomCardNumber "discover"
 
-americanExpress :: IO String
+americanExpress :: Faker String
 americanExpress = randomCardNumber "american_express"
 
-dinersClub :: IO String
+dinersClub :: Faker String
 dinersClub = randomCardNumber "dinersClub"
 
-jcb :: IO String
+jcb :: Faker String
 jcb = randomCardNumber "jcb"
 
-switch :: IO String
+switch :: Faker String
 switch = randomCardNumber "switch"
 
-solo :: IO String
+solo :: Faker String
 solo = randomCardNumber "solo"
 
-dankort :: IO String
+dankort :: Faker String
 dankort = randomCardNumber "dankort"
 
-maestro :: IO String
+maestro :: Faker String
 maestro = randomCardNumber "maestro"
 
-forbrugsforeningen :: IO String
+forbrugsforeningen :: Faker String
 forbrugsforeningen = randomCardNumber "forbrugsforeningen"
 
-laser :: IO String
+laser :: Faker String
 laser = randomCardNumber "laser"
 
-randomCardNumber :: String -> IO String
+randomCardNumber :: String -> Faker String
 randomCardNumber attr = do
     cardNum <- randomValue "credit_card" attr
     filledNum <- evalRegex cardNum
