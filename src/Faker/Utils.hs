@@ -1,22 +1,25 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 module Faker.Utils
 (
-  runFaker
-, valsList
+-- * Data types
+  Faker(..)
+
+-- * functions
+, runFaker
 , randomValue
-, randomNum
+, randomInt
 , replaceSymbols
 , evalRegex
 )
 where
 
-import System.Random (newStdGen, randomR)
+import System.Random (newStdGen, StdGen, randomR)
 import Gimlh
 import Data.List.Split (splitOn)
 import Data.List (intercalate)
 import Control.Monad.State
 import Control.Applicative
-import Paths_faker
+--import Paths_faker
 
 data FakerData = FakerData {
     gimlData :: SimpleGiml,
@@ -51,7 +54,7 @@ readFromGiml thing = do
 randomValue :: String -> String -> Faker String
 randomValue namespace valType = do
     valList <- readFromGiml (namespace ++ "$" ++ valType)
-    ind <- randomInt (0, length valList)
+    ind <- randomInt (0, length valList - 1)
     return $ valList !! ind
 
 randomInt :: (Int, Int) -> Faker Int
@@ -68,8 +71,9 @@ replaceSymbols :: String -> Faker String
 replaceSymbols [] = return ""
 replaceSymbols (x:xs) = do
     restOfLine <- replaceSymbols xs
+    randInt <- randomInt (0,9)
     return $ case x of
-               '#' -> show (randomInt (0,9) :: Int) ++ restOfLine
+               '#' -> show randInt ++ restOfLine
                _   -> x : restOfLine
 
 evalRegex :: String -> Faker String
@@ -94,15 +98,13 @@ replicateChars :: Char -> String -> Faker String
 replicateChars char rest = do
   let splittedLine = splitOn "}" rest
       range = read $ "(" ++ tail (head splittedLine) ++ ")" :: (Int, Int)
-      replicated = replicate (randomInt range) char
-      restOfLine = intercalate "}" (tail splittedLine)
-  return $ replicated ++ restOfLine
+  randInt <- randomInt range
+  return $ replicate randInt char ++ intercalate "}" (tail splittedLine)
 
 randomizeChar :: String -> Faker String
 randomizeChar rest = do
   let splittedLine = splitOn "]" rest
       rangeNumbers = intercalate "," (splitOn "-" (tail $ head splittedLine))
       range = read $ "(" ++ rangeNumbers ++ ")" :: (Int, Int)
-      randomized = show $ randomInt range
-      restOfLine = intercalate "]" (tail splittedLine)
-  return $ randomized ++ restOfLine
+  randInt <- randomInt range
+  return $ show randInt ++ intercalate "]" (tail splittedLine)

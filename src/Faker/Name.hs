@@ -11,9 +11,9 @@ where
 
 import Faker.Utils
 
-name :: IO String
+name :: Faker String
 name = do
-    ind <- randomNum (0,6)
+    ind <- randomInt (0,6)
     pref <- prefix
     suff <- suffix
     fName <- firstName
@@ -23,27 +23,27 @@ name = do
                1 -> unwords [fName, lName, suff]
                _ -> fName ++ " " ++ lName
 
-firstName :: IO String
+firstName :: Faker String
 firstName = randomName "first_name"
 
-lastName :: IO String
+lastName :: Faker String
 lastName = randomName "last_name"
 
-prefix :: IO String
+prefix :: Faker String
 prefix = randomName "prefix"
 
-suffix :: IO String
+suffix :: Faker String
 suffix = randomName "suffix"
 
-title :: IO String
+title :: Faker String
 title = do
     descriptor <- randomTitle "descriptor"
     level      <- randomTitle "level"
     job        <- randomTitle "job"
     return $ unwords [descriptor, level, job]
 
-randomName :: String -> IO String
+randomName :: String -> Faker String
 randomName = randomValue "name"
 
-randomTitle :: String -> IO String
+randomTitle :: String -> Faker String
 randomTitle = randomValue "title"
