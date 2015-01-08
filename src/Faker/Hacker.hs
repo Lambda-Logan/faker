@@ -45,7 +45,9 @@ phrases = [ "If we #{verb} the #{noun}, we can get to the #{abbreviation} #{noun
 
 evalPhrase :: String -> Faker String
 evalPhrase [] = return ""
-evalPhrase phrase = return $ unwords $ map evalWord (words phrase)
+evalPhrase phrase = do
+    result <- sequence $ map evalWord (words phrase)
+    return $ unwords result
 
 evalWord :: String -> Faker String
 evalWord [] = return ""
@@ -56,7 +58,7 @@ evalWord ('#':word) = do
       "noun"         -> noun
       "verb"         -> verb
       _              -> ingverb
-evalWord word = word
+evalWord word = return word
 
 randomHackerWord :: String -> Faker String
 randomHackerWord = randomValue "hacker"
