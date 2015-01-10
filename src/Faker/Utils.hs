@@ -21,13 +21,24 @@ import Control.Monad.State
 import Control.Applicative
 --import Paths_faker
 
+type Locale = US | Russian
+
+data FakerConfig = FakerConfig {
+                     fakerLocale :: Locale
+                   }
+
 data FakerData = FakerData {
-    gimlData :: SimpleGiml,
+    defaultLocaleData :: SimpleGiml,
+    localeData :: SimpleGiml,
     stdGen :: StdGen
   }
 
 newtype Faker a = Faker (State FakerData a)
   deriving (Functor, Monad, Applicative, MonadState FakerData)
+
+localeFileName :: Locale -> String
+localeFileName Russian = "ru"
+localeFileName _ = "en"
 
 loadGimlData :: FilePath -> IO SimpleGiml
 loadGimlData fname = do
@@ -35,17 +46,28 @@ loadGimlData fname = do
     contents <- parseFile fname
     return $ simplifyGiml contents
 
+runFakerWith :: FakerConfig -> Faker a -> IO a
+runFakerWith config (Faker action) = do
+  defaultLocaleData <- loadGimlData ("../data/" ++ localeFileName US ++ ".giml")
+  localeData <- loadGimlData ("../data/" ++ localeFileName (fakerLocale config) ++ ".giml")
+  stdGen <- newStdGen
+  let fakerData = FakerData { defaultLocaleData = defaultLocaleData
+                            , localeData = localeData
+                            , stdGen = stdGen }
+
+  return $ evalState action fakerData
+
 runFaker :: Faker a -> IO a
 runFaker (Faker action) = do
-  gimlData <- loadGimlData "../data/en.giml"
+  defaultLocaleData <- loadGimlData "../data/en.giml"
   stdGen <- newStdGen
-  let fakerData = FakerData { gimlData = gimlData, stdGen = stdGen }
+  let fakerData = FakerData { defaultLocaleData = gimlData, stdGen = stdGen }
 
   return $ evalState action fakerData
 
 readFromGiml :: String -> Faker [String]
 readFromGiml thing = do
-  d <- gets gimlData
+  d <- gets localeData
   case fetch d thing of
     Just x -> return $ val2List x
     Nothing -> error "no element and sucky error handling"
