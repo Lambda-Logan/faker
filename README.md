@@ -64,10 +64,10 @@ Faker.Name.name -- => John Werbowsky
   - [x] `buzzwords`
   - [x] `bs`
   - [x] `suffix`
-  - [ ] `catchPhrase`
-  - [ ] `ein`
-  - [ ] `dunsNumber`
-  - [ ] `logo`
+  - [x] `catchPhrase`
+  - [x] `ein`
+  - [x] `dunsNumber`
+  - [x] `logo`
 * **App**
   - [x] `name`
   - [x] `version`
