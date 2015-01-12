@@ -100,20 +100,20 @@ Faker.Name.name -- => John Werbowsky
   - [x] `freeEmailDomain`
 * **Lorem**
   - [ ] `characters range -- (15,255)`
-  - [ ] `characters num`
+  - [x] `characters num`
   - [ ] `paragraph range -- (2,5)`
-  - [ ] `paragraph num`
+  - [x] `paragraph num`
   - [ ] `paragraphs range -- (2,5)`
-  - [ ] `paragraphs num`
+  - [x] `paragraphs num`
   - [ ] `sentence range -- (4,10)`
-  - [ ] `sentence num mark`
+  - [x] `sentence num mark`
   - [ ] `sentences range -- (2,5)`
-  - [ ] `sentences num`
+  - [x] `sentences num`
   - [x] `word`
   - [ ] `sentences range -- (3,6)`
-  - [ ] `sentences num`
+  - [x] `sentences num`
 * **Avatar**
-  - [ ] `imageUrl`
+  - [x] `imageUrl`
   - [ ] `imageUrl slug`
   - [ ] `imageUrl width height`
   - [ ] `imageUrl slug width height`
