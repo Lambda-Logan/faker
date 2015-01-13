@@ -98,6 +98,14 @@ Faker.Name.name -- => John Werbowsky
   - [x] `userName`
   - [x] `domainSuffix`
   - [x] `freeEmailDomain`
+* **Hacker**
+  - [x] `saySomethingSmart`
+  - [x] `abbreviation`
+  - [x] `adjective`
+  - [x] `noun`
+  - [x] `verb`
+  - [x] `ingverb`
+  - [x] `phrases`
 * **Lorem**
   - [ ] `characters range -- (15,255)`
   - [x] `characters num`
