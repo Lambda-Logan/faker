@@ -1,5 +1,17 @@
+{-|
+Module        : Faker.Address
+Description   : Module for generating fake address data
+Copyright     : (c) Alexey Gaziev, 2015
+License       : MIT
+Maintainer    : alex.gaziev@gmail.com
+Stability     : experimental
+Portability   : POSIX
+
+Fake data
+-}
 module Faker.Address
 (
+-- * Functions for generate fake address data
   city
 , streetName
 , streetAddress
@@ -25,6 +37,7 @@ where
 import Faker.Utils
 import qualified Faker.Name as N
 
+-- | Returns fake city name, wrapped in 'Faker' monad, i.e. Faker "
 city :: Faker String
 city = do
     fName <- N.firstName
