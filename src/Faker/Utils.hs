@@ -59,7 +59,7 @@ runFakerWith config (Faker action) = do
 
 runFaker :: Faker a -> IO a
 runFaker (Faker action) = do
-  defaultLocaleData <- loadGimlData "../data/en.giml"
+  defaultLocaleData <- loadGimlData ("../data/" ++ localeFileName US ++ ".giml")
   stdGen <- newStdGen
   let fakerData = FakerData { defaultLocaleData = defaultLocaleData
                             , localeData = defaultLocaleData
