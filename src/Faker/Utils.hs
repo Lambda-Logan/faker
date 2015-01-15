@@ -3,9 +3,12 @@ module Faker.Utils
 (
 -- * Data types
   Faker(..)
+, Locale(..)
+, FakerConfig(..)
 
 -- * functions
 , runFaker
+, runFakerWith
 , randomValue
 , randomInt
 , replaceSymbols
@@ -22,10 +25,11 @@ import Control.Applicative
 --import Paths_faker
 
 data Locale = US | Russian
+  deriving (Show)
 
 data FakerConfig = FakerConfig {
                      fakerLocale :: Locale
-                   }
+                   } deriving (Show)
 
 data FakerData = FakerData {
     defaultLocaleData :: SimpleGiml,
