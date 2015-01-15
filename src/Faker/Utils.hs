@@ -21,7 +21,7 @@ import Control.Monad.State
 import Control.Applicative
 --import Paths_faker
 
-type Locale = US | Russian
+data Locale = US | Russian
 
 data FakerConfig = FakerConfig {
                      fakerLocale :: Locale
@@ -61,7 +61,9 @@ runFaker :: Faker a -> IO a
 runFaker (Faker action) = do
   defaultLocaleData <- loadGimlData "../data/en.giml"
   stdGen <- newStdGen
-  let fakerData = FakerData { defaultLocaleData = gimlData, stdGen = stdGen }
+  let fakerData = FakerData { defaultLocaleData = defaultLocaleData
+                            , localeData = defaultLocaleData
+                            , stdGen = stdGen }
 
   return $ evalState action fakerData
 
