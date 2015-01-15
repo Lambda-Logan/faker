@@ -74,9 +74,12 @@ runFaker (Faker action) = do
 readFromGiml :: String -> Faker [String]
 readFromGiml thing = do
   d <- gets localeData
+  defaultData <- gets defaultLocaleData
   case fetch d thing of
     Just x -> return $ val2List x
-    Nothing -> error "no element and sucky error handling"
+    Nothing -> case fetch defaultData thing of
+                 Just x -> return $ val2List x
+                 Nothing -> error "no element and sucky error handling"
 
 randomValue :: String -> String -> Faker String
 randomValue namespace valType = do
