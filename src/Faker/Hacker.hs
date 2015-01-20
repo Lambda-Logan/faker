@@ -1,5 +1,17 @@
+{-|
+Module        : Faker.Hacker
+Description   : Module for generating fake data related to IT
+Copyright     : (c) Alexey Gaziev, 2015
+License       : MIT
+Maintainer    : alex.gaziev@gmail.com
+Stability     : experimental
+Portability   : POSIX
+
+Fake data
+-}
 module Faker.Hacker
 (
+-- * Functions for generate fake data related to IT
   saySomethingSmart
 , abbreviation
 , adjective
@@ -12,17 +24,26 @@ where
 
 import Faker.Utils
 
+-- | Returns some smart IT phrase, i.e.
+-- "The PCI capacitor is down, back up the digital matrix so we can hack
+-- the FTP generating"
 saySomethingSmart :: Faker String
 saySomethingSmart = do
     ind <- randomInt (0, length phrases - 1)
     evalPhrase $ phrases !! ind
 
+-- | Part of 'Faker.Hacker.saySomethingSmart' function.
+-- Returns random IT abbreviation, i.e. "AI"
 abbreviation :: Faker String
 abbreviation = randomHackerWord "abbreviation"
 
+-- | Part of 'Faker.Hacker.saySomethingSmart' function.
+-- Returns random IT adjective, i.e. "primary"
 adjective :: Faker String
 adjective = randomHackerWord "adjective"
 
+-- | Part of 'Faker.Hacker.saySomethingSmart' function.
+-- Returns random IT noun, i.e. "panel"
 noun :: Faker String
 noun = randomHackerWord "noun"
 
