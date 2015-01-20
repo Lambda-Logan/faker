@@ -81,13 +81,13 @@ longitude = do
     num <- randomInt (1,99)
     return . show $ ((fromIntegral num :: Double) / 100) * 360 - 180
 
--- | Part of 'Faker.Address.city' function Returns random prefix for city
--- name, i.e. "Port"
+-- | Part of 'Faker.Address.city' function.
+-- Returns random prefix for city name, i.e. "Port"
 cityPrefix :: Faker String
 cityPrefix = randomAddress "city_prefix"
 
--- | Part of 'Faker.Address.city' function Returns random suffix for city
--- name, i.e. "borough"
+-- | Part of 'Faker.Address.city' function.
+-- Returns random suffix for city name, i.e. "borough"
 citySuffix :: Faker String
 citySuffix = randomAddress "city_suffix"
 
@@ -133,7 +133,8 @@ stateAbbr = randomAddress "state_abbr"
 timeZone :: Faker String
 timeZone = randomAddress "time_zone"
 
--- | Returns default country for current locale, i.e. "United States of America"
+-- | Returns default country for current locale,
+-- i.e. "United States of America"
 defaultCountry :: Faker String
 defaultCountry = randomAddress "default_country"
 
