@@ -47,12 +47,17 @@ adjective = randomHackerWord "adjective"
 noun :: Faker String
 noun = randomHackerWord "noun"
 
+-- | Part of 'Faker.Hacker.saySomethingSmart' function.
+-- Returns random IT verb, i.e. "back up"
 verb :: Faker String
 verb = randomHackerWord "verb"
 
+-- | Part of 'Faker.Hacker.saySomethingSmart' function.
+-- Returns random IT ing verb, i.e. "copying"
 ingverb :: Faker String
 ingverb = randomHackerWord "ingverb"
 
+-- | List of phrases templates for 'Faker.Hacker.saySomethingSmart'
 phrases :: [String]
 phrases = [ "If we #{verb} the #{noun}, we can get to the #{abbreviation} #{noun} through the #{adjective} #{abbreviation} #{noun}!"
           , "We need to #{verb} the #{adjective} #{abbreviation} #{noun}!"
