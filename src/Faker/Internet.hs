@@ -1,5 +1,17 @@
+{-|
+Module        : Faker.Internet
+Description   : Module for generating fake data related to Internet
+Copyright     : (c) Alexey Gaziev, 2015
+License       : MIT
+Maintainer    : alex.gaziev@gmail.com
+Stability     : experimental
+Portability   : POSIX
+
+Fake data
+-}
 module Faker.Internet
 (
+-- * Functions for generate fake data related to Internet
   freeEmailDomain
 , generateEmail
 , domainSuffix
@@ -15,6 +27,7 @@ import qualified Faker.Name as N
 import Data.Char
 import Control.Monad (liftM)
 
+-- | Returns random email, i.e. "hayden.pfannerstill@robel.com"
 email :: Faker String
 email = do
     cName  <- N.lastName
@@ -22,15 +35,20 @@ email = do
     let lDomain = loweredLetters cName ++ "." ++ domain
     generateEmail lDomain
 
+-- | Returns random email with free domain, i.e. "lmarks@yahoo.com"
 freeEmail :: Faker String
 freeEmail = freeEmailDomain >>= generateEmail
 
+-- | Returns random safe email with dummy domain, i.e. "m.langosh@example.org"
 safeEmail :: Faker String
 safeEmail = domainSuffix >>= generateEmail . ("example." ++)
 
+-- | Returns random email with provided domain, i.e.
+-- "a.marks@yourdomain.org"
 generateEmail :: String -> Faker String
 generateEmail domain = liftM (++ "@" ++ domain) userName
 
+-- | Returns random username, i.e. "k.johnson"
 userName :: Faker String
 userName = do
     fName <- N.firstName
@@ -49,6 +67,7 @@ loweredLetters str = map toLower $ filter isLetter str
 freeEmailDomain :: Faker String
 freeEmailDomain = randomInternetWord "free_email"
 
+-- | Returns random domain suffix, i.e. "biz"
 domainSuffix :: Faker String
 domainSuffix = randomInternetWord "domain_suffix"
 
