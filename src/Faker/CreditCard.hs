@@ -46,28 +46,35 @@ discover = randomCardNumber "discover"
 americanExpress :: Faker String
 americanExpress = randomCardNumber "american_express"
 
--- | Returns random discover card number, i.e. "3772-746109-17862"
+-- | Returns random diners card number, i.e. "3058-931015-6480"
 dinersClub :: Faker String
 dinersClub = randomCardNumber "diners_club"
 
+-- | Returns random jsb card number, i.e. "3529-3170-1533-8944"
 jcb :: Faker String
 jcb = randomCardNumber "jcb"
 
+-- | Returns random switch card number, i.e. "6759-8669-0174-5662-863"
 switch :: Faker String
 switch = randomCardNumber "switch"
 
+-- | Returns random solo card number, i.e. "6767-9171-7219-8374-98"
 solo :: Faker String
 solo = randomCardNumber "solo"
 
+-- | Returns random dankort card number, i.e. "5019-5391-9757-3574"
 dankort :: Faker String
 dankort = randomCardNumber "dankort"
 
+-- | Returns random maestro card number, i.e. "563427125821696744"
 maestro :: Faker String
 maestro = randomCardNumber "maestro"
 
+-- | Returns random forbrugsforeningen card number, i.e. "6007-2299-2494-9683"
 forbrugsforeningen :: Faker String
 forbrugsforeningen = randomCardNumber "forbrugsforeningen"
 
+-- | Returns random laser card number, i.e. "6709272591057118"
 laser :: Faker String
 laser = randomCardNumber "laser"
 
