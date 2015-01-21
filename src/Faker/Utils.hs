@@ -128,6 +128,11 @@ randomInt bounds = do
 
   return int
 
+-- | Internal function, used in other 'Faker' modules
+-- to replace special chars '#' with random numbers
+--
+-- >>> runFaker $ replaceSymbols "##-##"
+-- "12-48"
 replaceSymbols :: String -> Faker String
 replaceSymbols [] = return ""
 replaceSymbols (x:xs) = do
@@ -137,6 +142,14 @@ replaceSymbols (x:xs) = do
                '#' -> show randInt ++ restOfLine
                _   -> x : restOfLine
 
+-- | Internal function, used in other 'Faker' modules
+-- to eval special regex and turn them into 'Faker String'
+--
+-- >>> runFaker $ evalRegex "/5[1-5]-#{3,5}/"
+-- "555-6384"
+--
+-- >>> runFaker $ evalRegex "/5[1-5]-#{3,5}/"
+-- "5555-177"
 evalRegex :: String -> Faker String
 evalRegex regex = do
     let preparedRegex = if head regex == '/' && last regex == '/'
