@@ -29,9 +29,9 @@ cabal install faker
 # Usage
 
 ```
-:m Faker
+:m Faker.Name
 
-Faker.Name.name -- => John Werbowsky
+runFaker name -- => John Werbowsky
 ```
 
 # Modules/Functions
