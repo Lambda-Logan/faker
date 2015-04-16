@@ -55,11 +55,14 @@ userName = do
     lName <- N.lastName
     let loweredFName = loweredLetters fName
         loweredLName = loweredLetters lName
-    ind <- randomInt (0,2)
-    return $ case ind of
-               0 -> loweredFName ++ "." ++ loweredLName
-               1 -> head loweredFName : '.' :loweredLName
-               _ -> head loweredFName : loweredLName
+    if null loweredFName
+      then userName
+      else do
+        ind <- randomInt (0,2)
+        return $ case ind of
+                0 -> loweredFName ++ "." ++ loweredLName
+                1 -> head loweredFName : '.' :loweredLName
+                _ -> head loweredFName : loweredLName
 
 loweredLetters :: String -> String
 loweredLetters str = map toLower $ filter isLetter str
