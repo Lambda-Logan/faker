@@ -19,6 +19,7 @@ Inspired by:
 * Python [faker](https://github.com/joke2k/Faker)
 * Erlang [fakerl](https://github.com/mawuli-ypa/fakerl)
 * Elixir [faker](https://github.com/igas/faker)
+* Perl [faker](http://search.cpan.org/~jasonk/Data-Faker-0.07/)
 
 # Install
 
