@@ -1,3 +1,5 @@
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-|
 Module        : Faker.Utils
@@ -32,8 +34,10 @@ import Gimlh
 import Data.List.Split (splitOn)
 import Data.List (intercalate)
 import Control.Monad.State
+#if !MIN_VERSION_base(4,8,0)
 import Control.Applicative
---import Paths_faker
+#endif
+import Paths_faker
 
 -- | Value represent locales
 data Locale = US      -- ^ Default locale, US
@@ -63,27 +67,23 @@ localeFileName _ = "en"
 
 loadGimlData :: FilePath -> IO SimpleGiml
 loadGimlData fname = do
-    -- filePath <- getDataFileName "data/en.giml"
-    contents <- parseFile fname
+    filePath <- getDataFileName fname
+    contents <- parseFile filePath
     return $ simplifyGiml contents
 
 -- | Function for run 'Faker' functions with 'FakerConfig' (currently with
 -- specified locale in it)
 runFakerWith :: FakerConfig -> Faker a -> IO a
 runFakerWith config (Faker action) = do
-  defaultLocaleData <- loadGimlData ("../data/" ++ localeFileName US ++ ".giml")
-  localeData <- loadGimlData ("../data/" ++ localeFileName (fakerLocale config) ++ ".giml")
+  defaultLocaleData <- loadGimlData ("data/" ++ localeFileName US ++ ".giml")
+  localeData <- loadGimlData ("data/" ++ localeFileName (fakerLocale config) ++ ".giml")
   stdGen <- newStdGen
-  let fakerData = FakerData { defaultLocaleData = defaultLocaleData
-                            , localeData = localeData
-                            , stdGen = stdGen }
-
-  return $ evalState action fakerData
+  return $ evalState action FakerData{..}
 
 -- | Function for run 'Faker' functions with default 'US' locale
 runFaker :: Faker a -> IO a
 runFaker (Faker action) = do
-  defaultLocaleData <- loadGimlData ("../data/" ++ localeFileName US ++ ".giml")
+  defaultLocaleData <- loadGimlData ("data/" ++ localeFileName US ++ ".giml")
   stdGen <- newStdGen
   let fakerData = FakerData { defaultLocaleData = defaultLocaleData
                             , localeData = defaultLocaleData
@@ -120,11 +120,11 @@ randomValue namespace valType = do
 -- 3
 randomInt :: (Int, Int) -> Faker Int
 randomInt bounds = do
-  state <- get
+  fakerData <- get
 
-  let (int, newGen) = randomR bounds (stdGen state)
+  let (int, newGen) = randomR bounds (stdGen fakerData)
 
-  put (state { stdGen = newGen })
+  put (fakerData { stdGen = newGen })
 
   return int
 

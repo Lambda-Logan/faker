@@ -1,0 +1,5 @@
+---
+resolver: lts-11.7
+
+extra-deps:
+  - gimlh-0.1.3.0
