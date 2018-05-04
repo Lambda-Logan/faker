@@ -1,6 +1,6 @@
 # Faker
 
-[![Build Status](https://travis-ci.org/gazay/faker.svg?branch=master)](https://travis-ci.org/gazay/faker)
+[![Build Status](https://travis-ci.com/gazay/faker.svg?branch=master)](https://travis-ci.com/gazay/faker)
 [![Hackage](https://img.shields.io/hackage/v/faker.svg)](http://hackage.haskell.org/package/faker)
 
 **Faker** is pure Haskell library for generating fake data.
