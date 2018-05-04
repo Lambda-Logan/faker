@@ -1,67 +1,73 @@
-Name:     faker
-Version:  0.0.0.4
-Synopsis: Pure Haskell library for generating fake data
-Description:
-  No description yet
-  .
-  > 0.0.0.4
-  >  - Setup stack
-  >  - Setup travis
-  >  - Fix build warnings
-  .
-  > 0.0.0.3
-  >  - Dependencies for base 4.7
-  .
-  > 0.0.0.2
-  >  - Small data fix for address
-  .
-  > 0.0.0.1
-  >  - Init version
+-- This file has been generated from package.yaml by hpack version 0.27.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 38b906afb37933aba86c1cd3d67bf5534fa6913b5c36d0f2746df483fef028ee
 
-Author:        Alexey Gaziev
-Maintainer:    Alexey Gaziev <alex.gaziev@gmail.com>
-Homepage:      https://github.com/gazay/faker
-Bug-Reports:   http://github.com/gazay/faker/issues
+name:           faker
+version:        0.0.0.4
+synopsis:       Pure Haskell library for generating fake data
+description:    Please see the README on GitHub at <https://github.com/gazay/faker#readme>
+category:       Testing
+homepage:       https://github.com/gazay/faker#readme
+bug-reports:    https://github.com/gazay/faker/issues
+author:         Alexey Gaziev
+maintainer:     Alexey Gaziev <alex.gaziev@gmail.com>
+copyright:      2014-2018 Alexey Gaziev
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
 
-License:       MIT
-License-File:  LICENSE
-Category:      Testing
-Cabal-Version: >= 1.8
-Build-Type:    Simple
-Data-Files:    data/*.giml
+extra-source-files:
+    CHANGELOG.md
+    README.md
 
-Source-Repository head
-  Type:     git
-  Location: git://github.com/gazay/faker.git
+data-files:
+    data/en.giml
+    data/ru.giml
 
-Library
-  HS-Source-Dirs: src
+source-repository head
+  type: git
+  location: https://github.com/gazay/faker
 
-  Exposed-Modules:
+library
+  exposed-modules:
+      Faker.Address
+      Faker.App
+      Faker.Avatar
+      Faker.Business
+      Faker.Company
+      Faker.CreditCard
+      Faker.Hacker
+      Faker.Internet
+      Faker.Lorem
       Faker.Name
-    , Faker.Address
-    , Faker.CreditCard
-    , Faker.Company
-    , Faker.Internet
-    , Faker.App
-    , Faker.Business
-    , Faker.Lorem
-    , Faker.Utils
+      Faker.Utils
+  other-modules:
+      Paths_faker
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Werror
+  build-depends:
+      base >=4.7 && <5
+    , gimlh >=0.1.2.0
+    , mtl
+    , random
+    , split >=0.2.0
+  default-language: Haskell2010
 
-  Other-Modules: Paths_faker
-
-  GHC-Options: -Wall
-  Build-Depends: base >= 4.7 && < 5, gimlh >= 0.1.2.0, random, split >= 0.2.0, mtl
-
-Test-Suite tests
-  Type: exitcode-stdio-1.0
-  HS-Source-Dirs: test
-  Main-is: Spec.hs
-
-  Other-Modules:
-    Faker.AddressSpec
-
-  Build-Depends:
-      base
+test-suite faker-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Faker.AddressSpec
+      Paths_faker
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
     , faker
-    , hspec >= 2.4
+    , hspec >=2.4
+  default-language: Haskell2010
