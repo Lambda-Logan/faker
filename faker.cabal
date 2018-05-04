@@ -1,8 +1,13 @@
 Name:     faker
-Version:  0.0.0.3
+Version:  0.0.0.4
 Synopsis: Pure Haskell library for generating fake data
 Description:
   No description yet
+  .
+  > 0.0.0.4
+  >  - Setup stack
+  >  - Setup travis
+  >  - Fix build warnings
   .
   > 0.0.0.3
   >  - Dependencies for base 4.7
@@ -47,3 +52,16 @@ Library
 
   GHC-Options: -Wall
   Build-Depends: base >= 4.7 && < 5, gimlh >= 0.1.2.0, random, split >= 0.2.0, mtl
+
+Test-Suite tests
+  Type: exitcode-stdio-1.0
+  HS-Source-Dirs: test
+  Main-is: Spec.hs
+
+  Other-Modules:
+    Faker.AddressSpec
+
+  Build-Depends:
+      base
+    , faker
+    , hspec >= 2.4

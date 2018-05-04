@@ -59,8 +59,8 @@ characters num = sequence $ replicate num character
 sentence :: Faker String
 sentence = do
     ws <- randomInt (3,12) >>= words
-    let sentence = unwords ws
-        result = (toUpper $ head sentence) : tail sentence ++ "."
+    let ss = unwords ws
+        result = (toUpper $ head ss) : tail ss ++ "."
     return result
 
 -- | Returns list of random sentences with size of provided num,
