@@ -4,7 +4,7 @@
 {-|
 Module        : Faker.Utils
 Description   : Module with helper functions for all other 'Faker' modules
-Copyright     : (c) Alexey Gaziev, 2015
+Copyright     : (c) Alexey Gaziev, 2014-2018
 License       : MIT
 Maintainer    : alex.gaziev@gmail.com
 Stability     : experimental

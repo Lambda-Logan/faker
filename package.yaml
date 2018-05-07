@@ -1,0 +1,45 @@
+---
+name:         faker
+version:      0.0.0.4
+synopsis:     Pure Haskell library for generating fake data
+description:  Please see the README on GitHub at <https://github.com/gazay/faker#readme>
+category:     Testing
+github:       gazay/faker
+author:       Alexey Gaziev
+maintainer:   Alexey Gaziev <alex.gaziev@gmail.com>
+copyright:    2014-2018 Alexey Gaziev
+license:      MIT
+
+extra-source-files:
+  - CHANGELOG.md
+  - README.md
+
+data-files:
+  - data/*.giml
+
+ghc-options:
+  - -Wall
+  - -Werror
+
+dependencies:
+  - base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+  dependencies:
+    - gimlh >= 0.1.2.0
+    - mtl
+    - random
+    - split >= 0.2.0
+
+tests:
+  faker-test:
+    main:         Spec.hs
+    source-dirs:  test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - faker
+      - hspec >= 2.4
