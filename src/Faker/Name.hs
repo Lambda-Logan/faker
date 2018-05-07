@@ -10,32 +10,32 @@ Portability   : POSIX
 Fake data
 -}
 module Faker.Name
-(
--- * Functions for generate fake names and titles
-  firstName
-, lastName
-, prefix
-, suffix
-, name
-, title
-)
-where
+  (
+  -- * Functions for generate fake names and titles
+    firstName
+  , lastName
+  , prefix
+  , suffix
+  , name
+  , title
+  )
+  where
 
-import Faker.Utils
+import           Faker.Utils
 
 -- | Returns random full name, sometimes with preffix or suffix, i.e.
 -- "Cara Gulgowski III"
 name :: Faker String
 name = do
-    ind <- randomInt (0,6)
-    pref <- prefix
-    suff <- suffix
-    fName <- firstName
-    lName <- lastName
-    return $ case ind of
-               0 -> unwords [pref, fName, lName]
-               1 -> unwords [fName, lName, suff]
-               _ -> fName ++ " " ++ lName
+  ind <- randomInt (0,6)
+  pref <- prefix
+  suff <- suffix
+  fName <- firstName
+  lName <- lastName
+  return $ case ind of
+    0 -> unwords [pref, fName, lName]
+    1 -> unwords [fName, lName, suff]
+    _ -> fName ++ " " ++ lName
 
 -- | Returns random first name, i.e. "Juston"
 firstName :: Faker String
@@ -56,10 +56,10 @@ suffix = randomName "suffix"
 -- | Returns random title, i.e. "Principal Configuration Assistant"
 title :: Faker String
 title = do
-    descriptor <- randomTitle "descriptor"
-    level      <- randomTitle "level"
-    job        <- randomTitle "job"
-    return $ unwords [descriptor, level, job]
+  descriptor <- randomTitle "descriptor"
+  level      <- randomTitle "level"
+  job        <- randomTitle "job"
+  return $ unwords [descriptor, level, job]
 
 randomName :: String -> Faker String
 randomName = randomValue "name"

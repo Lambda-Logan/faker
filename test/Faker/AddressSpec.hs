@@ -1,8 +1,8 @@
 module Faker.AddressSpec where
 
-import Test.Hspec
-import Faker.Address
-import Faker.Utils
+import           Faker.Address
+import           Faker.Utils
+import           Test.Hspec
 
 spec :: Spec
 spec =

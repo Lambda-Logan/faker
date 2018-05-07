@@ -10,76 +10,75 @@ Portability   : POSIX
 Fake data
 -}
 module Faker.Address
-(
--- * Functions for generate fake address data
-  city
-, streetName
-, streetAddress
-, latitude
-, longitude
-, cityPrefix
-, citySuffix
-, country
-, countryCode
-, buildingNumber
-, streetSuffix
-, secondaryAddress
-, postcode
-, postcodeByState
-, state
-, stateAbbr
-, timeZone
-, defaultCountry
-, randomAddress
-)
-where
+  (
+  -- * Functions for generate fake address data
+    city
+  , streetName
+  , streetAddress
+  , latitude
+  , longitude
+  , cityPrefix
+  , citySuffix
+  , country
+  , countryCode
+  , buildingNumber
+  , streetSuffix
+  , secondaryAddress
+  , postcode
+  , postcodeByState
+  , state
+  , stateAbbr
+  , timeZone
+  , defaultCountry
+  , randomAddress
+  ) where
 
-import Faker.Utils
-import qualified Faker.Name as N
+import qualified Faker.Name  as N
+import           Faker.Utils
 
 -- | Returns random city name, i.e. "West Felicitymouth"
 city :: Faker String
 city = do
-    fName <- N.firstName
-    lName <- N.lastName
-    pref  <- cityPrefix
-    suff  <- citySuffix
-    ind   <- randomInt (0,3)
-    return $ case ind of
-               0 -> pref ++ " " ++ fName ++ suff
-               1 -> pref ++ " " ++ fName
-               2 -> fName ++ suff
-               _ -> lName ++ suff
+  fName <- N.firstName
+  lName <- N.lastName
+  pref  <- cityPrefix
+  suff  <- citySuffix
+  ind   <- randomInt (0,3)
+  return $ case ind of
+    0 -> pref ++ " " ++ fName ++ suff
+    1 -> pref ++ " " ++ fName
+    2 -> fName ++ suff
+    _ -> lName ++ suff
 
 -- | Returns random street name, i.e. "Alfreda Fall"
 streetName :: Faker String
 streetName = do
-    fName <- N.firstName
-    lName <- N.lastName
-    suff  <- streetSuffix
-    ind   <- randomInt (0,1)
-    return $ case ind of
-               0 -> fName ++ " " ++ suff
-               _ -> lName ++ " " ++ suff
+  fName <- N.firstName
+  lName <- N.lastName
+  suff  <- streetSuffix
+  ind   <- randomInt (0,1)
+  return $ case ind of
+    0 -> fName ++ " " ++ suff
+    _ -> lName ++ " " ++ suff
 
 -- | Returns random street address, i.e. "78268 McDermott Run"
 streetAddress :: Faker String
 streetAddress = do
-    sName <- streetName
-    bNum  <- buildingNumber
-    return $ bNum ++ " " ++ sName
+  sName <- streetName
+  bNum  <- buildingNumber
+  return $ bNum ++ " " ++ sName
 
 -- | Returns random latitude, i.e. "21.599999999999994"
 latitude :: Faker String
 latitude = do
-    num <- randomInt (1,99)
-    return . show $ ((fromIntegral num :: Double) / 100) * 180 - 90
+  num <- randomInt (1,99)
+  return . show $ ((fromIntegral num :: Double) / 100) * 180 - 90
 
 -- | Returns random longitude, i.e. "-97.2"
 longitude :: Faker String
 longitude = do
-    num <- randomInt (1,99)
-    return . show $ ((fromIntegral num :: Double) / 100) * 360 - 180
+  num <- randomInt (1,99)
+  return . show $ ((fromIntegral num :: Double) / 100) * 360 - 180
 
 -- | Part of 'Faker.Address.city' function.
 -- Returns random prefix for city name, i.e. "Port"

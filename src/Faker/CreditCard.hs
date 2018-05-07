@@ -10,25 +10,24 @@ Portability   : POSIX
 Fake data
 -}
 module Faker.CreditCard
-(
--- * Functions for generate fake credit card numbers
-  visa
-, mastercard
-, discover
-, americanExpress
-, dinersClub
-, jcb
-, switch
-, solo
-, dankort
-, maestro
-, forbrugsforeningen
-, laser
-)
-where
+  (
+  -- * Functions for generate fake credit card numbers
+    visa
+  , mastercard
+  , discover
+  , americanExpress
+  , dinersClub
+  , jcb
+  , switch
+  , solo
+  , dankort
+  , maestro
+  , forbrugsforeningen
+  , laser
+  ) where
 
-import Data.Char (digitToInt, isDigit)
-import Faker.Utils
+import           Data.Char   (digitToInt, isDigit)
+import           Faker.Utils
 
 -- | Returns random visa card number, i.e. "4784066907150"
 visa :: Faker String
@@ -80,22 +79,22 @@ laser = randomCardNumber "laser"
 
 randomCardNumber :: String -> Faker String
 randomCardNumber attr = do
-    cardNum <- randomValue "credit_card" attr
-    filledNum <- evalRegex cardNum
-    return $ addLuhnSum filledNum
+  cardNum <- randomValue "credit_card" attr
+  filledNum <- evalRegex cardNum
+  return $ addLuhnSum filledNum
 
 addLuhnSum :: String -> String
-addLuhnSum numberString = let
-    numbers = collectNumbers numberString
-    luhnSum = countLuhnSum numbers 2
-    luhnDigit = (10 - (luhnSum `mod` 10)) `mod` 10
-  in
-    init numberString ++ show luhnDigit
+addLuhnSum numberString =
+  let numbers = collectNumbers numberString
+      luhnSum = countLuhnSum numbers 2
+      luhnDigit = (10 - (luhnSum `mod` 10)) `mod` 10
+  in init numberString ++ show luhnDigit
 
 countLuhnSum :: [Int] -> Int -> Int
 countLuhnSum [] _ = 0
-countLuhnSum (x:xs) m = let nextM = if m == 2 then 1 else 2 in
-                            luhnStep x m + countLuhnSum xs nextM
+countLuhnSum (x:xs) m =
+  let nextM = if m == 2 then 1 else 2
+  in luhnStep x m + countLuhnSum xs nextM
 
 luhnStep :: Int -> Int -> Int
 luhnStep x m = sum $ map digitToInt (show (x * m))
@@ -103,4 +102,3 @@ luhnStep x m = sum $ map digitToInt (show (x * m))
 collectNumbers :: String -> [Int]
 collectNumbers [] = []
 collectNumbers str = foldl (\a x -> if isDigit x then digitToInt x : a else a) [] str
-

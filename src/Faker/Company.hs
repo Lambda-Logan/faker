@@ -10,34 +10,33 @@ Portability   : POSIX
 Fake data
 -}
 module Faker.Company
-(
--- * Functions for generate fake data related to company
-  buzzwords
-, bs
-, suffix
-, name
-, catchPhrase
-, ein
-, dunsNumber
-, logo
-)
-where
+  (
+  -- * Functions for generate fake data related to company
+    buzzwords
+  , bs
+  , suffix
+  , name
+  , catchPhrase
+  , ein
+  , dunsNumber
+  , logo
+  ) where
 
-import Faker.Utils
-import qualified Faker.Name as N
+import qualified Faker.Name  as N
+import           Faker.Utils
 
 -- | Returns random company name, i.e. "Sonair"
 name :: Faker String
 name = do
-    ind <- randomInt (0,2)
-    name1 <- N.lastName
-    name2 <- N.lastName
-    name3 <- N.lastName
-    suff  <- suffix
-    return $ case ind of
-               0 -> name1 ++ " " ++ suff
-               1 -> name1 ++ "-" ++ name2
-               _ -> name1 ++ ", " ++ name2 ++ " and " ++ name3
+  ind <- randomInt (0,2)
+  name1 <- N.lastName
+  name2 <- N.lastName
+  name3 <- N.lastName
+  suff  <- suffix
+  return $ case ind of
+    0 -> name1 ++ " " ++ suff
+    1 -> name1 ++ "-" ++ name2
+    _ -> name1 ++ ", " ++ name2 ++ " and " ++ name3
 
 -- | Returns random buzzword related to companies, i.e. "Balanced"
 buzzwords :: Faker String
@@ -56,9 +55,9 @@ suffix = randomCompanyWord "suffix"
 -- data-warehouse monitoring installation"
 catchPhrase :: Faker String
 catchPhrase = do
-    num <- randomInt (3,10)
-    ws  <- sequence $ replicate num buzzwords
-    return $ unwords ws
+  num <- randomInt (3,10)
+  ws  <- sequence $ replicate num buzzwords
+  return $ unwords ws
 
 -- | Returns random company ein, i.e. "12-1234567"
 ein :: Faker String

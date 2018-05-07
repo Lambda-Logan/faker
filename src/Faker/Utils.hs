@@ -1,6 +1,6 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE CPP                        #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE RecordWildCards            #-}
 {-|
 Module        : Faker.Utils
 Description   : Module with helper functions for all other 'Faker' modules
@@ -13,31 +13,29 @@ Portability   : POSIX
 Fake data
 -}
 module Faker.Utils
-(
--- * Data types
-  Faker(..)
-, Locale(..)
-, FakerConfig(..)
+  (
+  -- * Data types
+    Faker(..)
+  , Locale(..)
+  , FakerConfig(..)
+  -- * Helper functions for other 'Faker' modules
+  , runFaker
+  , runFakerWith
+  , randomValue
+  , randomInt
+  , replaceSymbols
+  , evalRegex
+  ) where
 
--- * Helper functions for other 'Faker' modules
-, runFaker
-, runFakerWith
-, randomValue
-, randomInt
-, replaceSymbols
-, evalRegex
-)
-where
-
-import System.Random (newStdGen, StdGen, randomR)
-import Gimlh
-import Data.List.Split (splitOn)
-import Data.List (intercalate)
-import Control.Monad.State
+import           Control.Monad.State
+import           Data.List           (intercalate)
+import           Data.List.Split     (splitOn)
+import           Gimlh
+import           System.Random       (StdGen, newStdGen, randomR)
 #if !MIN_VERSION_base(4,8,0)
-import Control.Applicative
+import           Control.Applicative
 #endif
-import Paths_faker
+import           Paths_faker
 
 -- | Value represent locales
 data Locale = US      -- ^ Default locale, US
@@ -45,16 +43,16 @@ data Locale = US      -- ^ Default locale, US
   deriving (Show)
 
 -- | Config for faker functions
-data FakerConfig = FakerConfig {
-                     fakerLocale :: Locale -- ^ Contains locale for 'Faker' functions
-                   } deriving (Show)
+newtype FakerConfig = FakerConfig
+  { fakerLocale :: Locale -- ^ Contains locale for 'Faker' functions
+  } deriving (Show)
 
 -- | Fake data storage, contains default and requested locales data and
 -- stdGen
-data FakerData = FakerData {
-    defaultLocaleData :: SimpleGiml, -- ^ Fake data for default locale (for fallbacks)
-    localeData :: SimpleGiml,        -- ^ Fake data for locale stored in 'FakerConfig' provided (same as 'defaultLocaleData' if none)
-    stdGen :: StdGen                 -- ^ Generator for fetching random values from data
+data FakerData = FakerData
+  { defaultLocaleData :: SimpleGiml -- ^ Fake data for default locale (for fallbacks)
+  , localeData        :: SimpleGiml -- ^ Fake data for locale stored in 'FakerConfig' provided (same as 'defaultLocaleData' if none)
+  , stdGen            :: StdGen     -- ^ Generator for fetching random values from data
   }
 
 -- | Stateful type for faker values
@@ -63,13 +61,13 @@ newtype Faker a = Faker (State FakerData a)
 
 localeFileName :: Locale -> String
 localeFileName Russian = "ru"
-localeFileName _ = "en"
+localeFileName _       = "en"
 
 loadGimlData :: FilePath -> IO SimpleGiml
 loadGimlData fname = do
-    filePath <- getDataFileName fname
-    contents <- parseFile filePath
-    return $ simplifyGiml contents
+  filePath <- getDataFileName fname
+  contents <- parseFile filePath
+  return $ simplifyGiml contents
 
 -- | Function for run 'Faker' functions with 'FakerConfig' (currently with
 -- specified locale in it)
@@ -85,11 +83,8 @@ runFaker :: Faker a -> IO a
 runFaker (Faker action) = do
   defaultLocaleData <- loadGimlData ("data/" ++ localeFileName US ++ ".giml")
   stdGen <- newStdGen
-  let fakerData = FakerData { defaultLocaleData = defaultLocaleData
-                            , localeData = defaultLocaleData
-                            , stdGen = stdGen }
-
-  return $ evalState action fakerData
+  let localeData = defaultLocaleData
+  return $ evalState action FakerData{..}
 
 readFromGiml :: String -> Faker [String]
 readFromGiml thing = do
@@ -98,8 +93,8 @@ readFromGiml thing = do
   case fetch d thing of
     Just x -> return $ val2List x
     Nothing -> case fetch defaultData thing of
-                 Just x -> return $ val2List x
-                 Nothing -> error "no element and sucky error handling"
+      Just x  -> return $ val2List x
+      Nothing -> error "no element and sucky error handling"
 
 -- | Internal function, used in other 'Faker' modules
 -- to fetch specific value from data storage by namespace and
@@ -109,9 +104,9 @@ readFromGiml thing = do
 -- "John"
 randomValue :: String -> String -> Faker String
 randomValue namespace valType = do
-    valList <- readFromGiml (namespace ++ "$" ++ valType)
-    ind <- randomInt (0, length valList - 1)
-    return $ valList !! ind
+  valList <- readFromGiml (namespace ++ "$" ++ valType)
+  ind <- randomInt (0, length valList - 1)
+  return $ valList !! ind
 
 -- | Internal function, used in other 'Faker' modules
 -- to get random number inside provided bounds:
@@ -121,11 +116,8 @@ randomValue namespace valType = do
 randomInt :: (Int, Int) -> Faker Int
 randomInt bounds = do
   fakerData <- get
-
   let (int, newGen) = randomR bounds (stdGen fakerData)
-
   put (fakerData { stdGen = newGen })
-
   return int
 
 -- | Internal function, used in other 'Faker' modules
@@ -136,11 +128,11 @@ randomInt bounds = do
 replaceSymbols :: String -> Faker String
 replaceSymbols [] = return ""
 replaceSymbols (x:xs) = do
-    restOfLine <- replaceSymbols xs
-    randInt <- randomInt (0,9)
-    return $ case x of
-               '#' -> show randInt ++ restOfLine
-               _   -> x : restOfLine
+  restOfLine <- replaceSymbols xs
+  randInt <- randomInt (0,9)
+  return $ case x of
+    '#' -> show randInt ++ restOfLine
+    _   -> x : restOfLine
 
 -- | Internal function, used in other 'Faker' modules
 -- to eval special regex and turn them into 'Faker String'
@@ -152,21 +144,22 @@ replaceSymbols (x:xs) = do
 -- "5555-177"
 evalRegex :: String -> Faker String
 evalRegex regex = do
-    let preparedRegex = if head regex == '/' && last regex == '/'
-                          then init $ tail regex
-                          else regex
-    replaceExpressions preparedRegex >>= replaceSymbols
+  let preparedRegex =
+        if head regex == '/' && last regex == '/'
+          then init $ tail regex
+          else regex
+  replaceExpressions preparedRegex >>= replaceSymbols
 
 replaceExpressions :: String -> Faker String
 replaceExpressions [] = return ""
 replaceExpressions [a] = return [a]
 replaceExpressions (x:y:xs) = case y of
-      '{' -> replicateChars x (y:xs) >>= replaceExpressions
-      _   -> case x of
-               '[' -> randomizeChar (x:y:xs) >>= replaceExpressions
-               _   -> do
-                        rest <- replaceExpressions (y:xs)
-                        return $ x : rest
+  '{' -> replicateChars x (y:xs) >>= replaceExpressions
+  _   -> case x of
+    '[' -> randomizeChar (x:y:xs) >>= replaceExpressions
+    _   -> do
+      rest <- replaceExpressions (y:xs)
+      return $ x : rest
 
 replicateChars :: Char -> String -> Faker String
 replicateChars char rest = do
