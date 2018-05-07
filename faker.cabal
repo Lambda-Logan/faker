@@ -2,10 +2,10 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 38b906afb37933aba86c1cd3d67bf5534fa6913b5c36d0f2746df483fef028ee
+-- hash: a31612c97dbc1d68f998b10763eba5d025fc23ac646a3118bb9ef1376db9f32f
 
 name:           faker
-version:        0.0.0.4
+version:        0.1.0
 synopsis:       Pure Haskell library for generating fake data
 description:    Please see the README on GitHub at <https://github.com/gazay/faker#readme>
 category:       Testing
@@ -62,12 +62,24 @@ test-suite faker-test
   main-is: Spec.hs
   other-modules:
       Faker.AddressSpec
+      Faker.AppSpec
+      Faker.AvatarSpec
+      Faker.BusinessSpec
+      Faker.CompanySpec
+      Faker.CreditCardSpec
+      Faker.HackerSpec
+      Faker.InternetSpec
+      Faker.LoremSpec
+      Faker.NameSpec
+      Helper
       Paths_faker
   hs-source-dirs:
       test
   ghc-options: -Wall -Werror -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , call-stack
     , faker
     , hspec >=2.4
+    , random
   default-language: Haskell2010

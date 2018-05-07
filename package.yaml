@@ -1,6 +1,6 @@
 ---
 name:         faker
-version:      0.0.0.4
+version:      0.1.0
 synopsis:     Pure Haskell library for generating fake data
 description:  Please see the README on GitHub at <https://github.com/gazay/faker#readme>
 category:     Testing
@@ -23,13 +23,13 @@ ghc-options:
 
 dependencies:
   - base >= 4.7 && < 5
+  - random
 
 library:
   source-dirs: src
   dependencies:
     - gimlh >= 0.1.2.0
     - mtl
-    - random
     - split >= 0.2.0
 
 tests:
@@ -41,5 +41,6 @@ tests:
       - -rtsopts
       - -with-rtsopts=-N
     dependencies:
+      - call-stack
       - faker
       - hspec >= 2.4
