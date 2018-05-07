@@ -19,7 +19,6 @@ data-files:
 
 ghc-options:
   - -Wall
-  - -Werror
 
 dependencies:
   - base >= 4.7 && < 5
