@@ -10,22 +10,21 @@ Portability   : POSIX
 Fake data
 -}
 module Faker.Lorem
-(
--- * Functions for generate fake words, sentences and paragraphs
-  word
-, words
-, character
-, characters
-, sentence
-, sentences
-, paragraph
-, paragraphs
-)
-where
+  (
+  -- * Functions for generate fake words, sentences and paragraphs
+    word
+  , words
+  , character
+  , characters
+  , sentence
+  , sentences
+  , paragraph
+  , paragraphs
+  ) where
 
-import Faker.Utils
-import Prelude hiding (words)
-import Data.Char
+import           Data.Char
+import           Faker.Utils
+import           Prelude     hiding (words)
 
 -- | Returns random word, i.e. "recusandae"
 word :: Faker String
@@ -34,10 +33,10 @@ word = randomLoremWord "words"
 -- | Returns random word or supplemental word, i.e. "benevolentia"
 wordOrSupplemental :: Faker String
 wordOrSupplemental = do
-    ind <- randomInt (0,1)
-    case ind of
-      0 -> word
-      _ -> randomLoremWord "supplemental"
+  ind <- randomInt (0,1)
+  case ind of
+    0 -> word
+    _ -> randomLoremWord "supplemental"
 
 -- | Returns list of random words with size of provided num,
 -- i.e. ["alveus","ademptio","arcus","autem","nihil"]
@@ -47,9 +46,9 @@ words num = sequence $ replicate num wordOrSupplemental
 -- | Returns random character, i.e. 'a'
 character :: Faker Char
 character = do
-    w <- word
-    ind <- randomInt (0, length w - 1)
-    return $ w !! ind
+  w <- word
+  ind <- randomInt (0, length w - 1)
+  return $ w !! ind
 
 -- | Returns random characters with size of provided num, i.e. "afasde"
 characters :: Int -> Faker [Char]
@@ -58,10 +57,10 @@ characters num = sequence $ replicate num character
 -- | Returns random sentence, i.e. "Ultio et solus uter nisi."
 sentence :: Faker String
 sentence = do
-    ws <- randomInt (3,12) >>= words
-    let ss = unwords ws
-        result = (toUpper $ head ss) : tail ss ++ "."
-    return result
+  ws <- randomInt (3,12) >>= words
+  let ss = unwords ws
+      result = (toUpper $ head ss) : tail ss ++ "."
+  return result
 
 -- | Returns list of random sentences with size of provided num,
 -- i.e. ["Optio ago aliquid magnam bestia dolores unde.","Villa recusandae velociter assumenda."]

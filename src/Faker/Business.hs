@@ -10,15 +10,15 @@ Portability   : POSIX
 Fake data
 -}
 module Faker.Business
-(
--- * Functions for generate fake data related to business
-  creditCardNumber
-, creditCardExpiryDate
-, creditCardType
-)
-where
+  (
+  -- * Functions for generate fake data related to business
+    creditCardNumber
+  , creditCardExpiryDate
+  , creditCardType
+  )
+  where
 
-import Faker.Utils
+import           Faker.Utils
 
 -- | Returns random business-like credit card number, i.e. "1234-2121-1221-1211"
 creditCardNumber :: Faker String
