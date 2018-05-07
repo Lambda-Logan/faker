@@ -1,3 +1,6 @@
+# 0.1.0
+  - Generate deterministic output
+
 # 0.0.0.4
   - Setup stack
   - Setup travis

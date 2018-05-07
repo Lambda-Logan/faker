@@ -21,6 +21,7 @@ module Faker.Utils
   -- * Helper functions for other 'Faker' modules
   , runFaker
   , runFakerWith
+  , runFakerWithSeed
   , randomValue
   , randomInt
   , replaceSymbols
@@ -31,7 +32,7 @@ import           Control.Monad.State
 import           Data.List           (intercalate)
 import           Data.List.Split     (splitOn)
 import           Gimlh
-import           System.Random       (StdGen, newStdGen, randomR)
+import           System.Random       (StdGen, mkStdGen, newStdGen, randomR)
 #if !MIN_VERSION_base(4,8,0)
 import           Control.Applicative
 #endif
@@ -69,22 +70,38 @@ loadGimlData fname = do
   contents <- parseFile filePath
   return $ simplifyGiml contents
 
+-- | Function for run 'Faker' functions with specific seed and default 'US'
+-- locale.
+runFakerWithSeed :: Int -> Faker a -> IO a
+runFakerWithSeed seed (Faker action) = do
+  defaultLocaleData <- getDefaultLocaleData
+  let localeData = defaultLocaleData
+      stdGen     = mkStdGen seed
+  return $ evalState action FakerData{..}
+
 -- | Function for run 'Faker' functions with 'FakerConfig' (currently with
 -- specified locale in it)
 runFakerWith :: FakerConfig -> Faker a -> IO a
 runFakerWith config (Faker action) = do
-  defaultLocaleData <- loadGimlData ("data/" ++ localeFileName US ++ ".giml")
-  localeData <- loadGimlData ("data/" ++ localeFileName (fakerLocale config) ++ ".giml")
+  defaultLocaleData <- getDefaultLocaleData
+  localeData <- getLocaleData $ fakerLocale config
   stdGen <- newStdGen
   return $ evalState action FakerData{..}
 
 -- | Function for run 'Faker' functions with default 'US' locale
 runFaker :: Faker a -> IO a
 runFaker (Faker action) = do
-  defaultLocaleData <- loadGimlData ("data/" ++ localeFileName US ++ ".giml")
+  defaultLocaleData <- getDefaultLocaleData
   stdGen <- newStdGen
   let localeData = defaultLocaleData
   return $ evalState action FakerData{..}
+
+getDefaultLocaleData :: IO SimpleGiml
+getDefaultLocaleData = getLocaleData US
+
+getLocaleData :: Locale -> IO SimpleGiml
+getLocaleData locale =
+  loadGimlData $ "data/" ++ (localeFileName locale) ++ ".giml"
 
 readFromGiml :: String -> Faker [String]
 readFromGiml thing = do
