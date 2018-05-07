@@ -1,7 +1,7 @@
 {-|
 Module        : Faker.Hacker
 Description   : Module for generating fake data related to IT
-Copyright     : (c) Alexey Gaziev, 2015
+Copyright     : (c) Alexey Gaziev, 2014-2018
 License       : MIT
 Maintainer    : alex.gaziev@gmail.com
 Stability     : experimental

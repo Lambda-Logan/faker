@@ -1,7 +1,7 @@
 {-|
 Module        : Faker.Name
 Description   : Module for generating fake names and titles
-Copyright     : (c) Alexey Gaziev, 2015
+Copyright     : (c) Alexey Gaziev, 2014-2018
 License       : MIT
 Maintainer    : alex.gaziev@gmail.com
 Stability     : experimental

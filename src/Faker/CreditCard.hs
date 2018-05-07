@@ -1,7 +1,7 @@
 {-|
 Module        : Faker.App
 Description   : Module for generating fake credit card numbers
-Copyright     : (c) Alexey Gaziev, 2015
+Copyright     : (c) Alexey Gaziev, 2014-2018
 License       : MIT
 Maintainer    : alex.gaziev@gmail.com
 Stability     : experimental
