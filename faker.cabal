@@ -1,8 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.27.0.
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.0.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1b3ea54be41e40e7813abb964c6aed1386a6e430653a101c22830820876249b2
+-- hash: 9a946c198e13228cafd01496ccf7a2ded1f84346a96ea4a2676e39abcc2fd357
 
 name:           faker
 version:        0.1.0
@@ -17,12 +19,9 @@ copyright:      2014-2018 Alexey Gaziev
 license:        MIT
 license-file:   LICENSE
 build-type:     Simple
-cabal-version:  >= 1.10
-
 extra-source-files:
     CHANGELOG.md
     README.md
-
 data-files:
     data/en.giml
     data/ru.giml
